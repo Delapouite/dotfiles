@@ -3,3 +3,4 @@ export PATH=~/phantomjs/bin:$PATH
 export PATH=~/slimerjs:$PATH
 export PATH=~/scala/bin:$PATH
 export PATH=~/play:$PATH
+export PATH=~/.dotfiles/bin:$PATH
