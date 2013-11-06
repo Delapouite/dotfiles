@@ -5,6 +5,7 @@ set listchars=eol:¶,tab:>-,trail:~,extends:>,precedes:<
 set mouse=a
 set nocompatible
 set number
+set laststatus=2
 
 " tabs
 set shiftwidth=4
@@ -20,6 +21,4 @@ Bundle 'gmarik/vundle'
 
 " bundles
 Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
