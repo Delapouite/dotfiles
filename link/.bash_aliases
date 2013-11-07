@@ -7,7 +7,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# ls
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
 alias lsd='ls -l | grep "^d"'
+
+# tar
+alias mktar='tar -cvzf'
+alias extar='tar -xvzf'
