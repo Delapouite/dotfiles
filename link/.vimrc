@@ -1,7 +1,7 @@
 filetype off
 
 set list
-set listchars=eol:¶,tab:>-,trail:~,extends:>,precedes:<
+set listchars=eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
 set mouse=a
 set nocompatible
 set number
@@ -21,4 +21,7 @@ Bundle 'gmarik/vundle'
 
 " bundles
 Bundle 'airblade/vim-gitgutter'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+
+map <silent> <C-e> :NERDTreeFocus<CR> 
