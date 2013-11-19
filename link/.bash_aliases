@@ -16,3 +16,5 @@ alias lsd='ls -l | grep "^d"'
 # tar
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
+
+alias server='python -m SimpleHTTPServer'
