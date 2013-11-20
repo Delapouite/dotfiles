@@ -12,6 +12,9 @@ alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
 alias lsd='ls -l | grep "^d"'
+function lc () {
+	cd "$@" && ls
+}
 
 # tar
 alias mktar='tar -cvzf'
