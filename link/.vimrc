@@ -25,6 +25,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
+Bundle 'digitaltoad/vim-jade'
 
 " shortcuts
 let mapleader=","
