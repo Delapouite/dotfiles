@@ -26,6 +26,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'digitaltoad/vim-jade'
+Bundle 'kien/ctrlp.vim'
 
 " shortcuts
 let mapleader=","
