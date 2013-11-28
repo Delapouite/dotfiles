@@ -28,11 +28,18 @@ Bundle 'scrooloose/syntastic'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
+Bundle 'Valloric/YouCompleteMe'
 
 " shortcuts
 let mapleader=","
 map <silent> <F2> <plug>NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 
-" git gutter
+" gitgutter
 highlight clear SignColumn "remove white background
+
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cul
+    autocmd WinLeave * set nocul
+augroup END
