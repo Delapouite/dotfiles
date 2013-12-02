@@ -28,7 +28,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'maksimr/vim-jsbeautify'
+Bundle 'einars/js-beautify'
+" Bundle 'Valloric/YouCompleteMe'
 
 " shortcuts
 let mapleader=","
