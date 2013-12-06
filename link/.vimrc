@@ -1,5 +1,6 @@
 filetype off
 
+set incsearch
 set list
 set listchars=eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
 set mouse=a
