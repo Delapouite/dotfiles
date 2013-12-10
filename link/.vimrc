@@ -38,6 +38,7 @@ Bundle 'einars/js-beautify'
 let mapleader=","
 map <silent> <F2> <plug>NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
+map <silent> <F4> :call JsBeautify()<CR>
 
 " gitgutter
 highlight clear SignColumn "remove white background
