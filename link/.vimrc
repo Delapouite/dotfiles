@@ -28,21 +28,25 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'digitaltoad/vim-jade'
+Bundle 'wavded/vim-stylus'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
-" Bundle 'Valloric/YouCompleteMe'
+
+filetype plugin indent on
 
 " shortcuts
 let mapleader=","
-map <silent> <F2> <plug>NERDTreeTabsToggle<CR>
+map <silent> <F1> :NERDTreeFind<CR>
+map <silent> <F2> :NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 map <silent> <F4> :call JsBeautify()<CR>
 
 " gitgutter
 highlight clear SignColumn "remove white background
 
+" line on focus
 augroup BgHighlight
     autocmd!
     autocmd WinEnter * set cul
