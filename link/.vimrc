@@ -42,6 +42,10 @@ map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 map <silent> <F4> :call JsBeautify()<CR>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " gitgutter
 highlight clear SignColumn "remove white background
