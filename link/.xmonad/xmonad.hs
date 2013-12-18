@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
@@ -37,6 +38,9 @@ myModMask = mod4Mask
 --
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
+-- declared to handle Headphone correctly
+volumeChannels = ["Master", "Headphone", "PCM"]
+
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor  = "#000000"
 myFocusedBorderColor = "#cc0000"
@@ -44,8 +48,13 @@ myFocusedBorderColor = "#cc0000"
 -- Key bindings. Add, modify or remove key bindings here.
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
+    -- sound volume
+    [ ((modm,               xK_F10   ), lowerVolumeChannels volumeChannels 5 >> return())
+    , ((modm,               xK_F11   ), raiseVolumeChannels volumeChannels 5 >> return())
+    , ((modm,               xK_F12   ), toggleMuteChannels volumeChannels >> return())
+
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
