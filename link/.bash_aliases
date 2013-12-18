@@ -17,11 +17,15 @@ alias la='ls -A'
 alias ll='ls -alF'
 alias lsd='ls -l | grep "^d"'
 function lc () {
-	cd "$@" && ls
+    cd "$@" && ls
 }
 
 # tar
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
 
-alias server='python -m SimpleHTTPServer'
+function server() {
+    local port="${1:-8000}"
+    xdg-open "http://localhost:${port}/" &
+    python -m SimpleHTTPServer "$port"
+}
