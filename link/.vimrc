@@ -15,6 +15,20 @@ set softtabstop=4
 set tabstop=4
 set autoindent
 
+" statusline
+
+set statusline=%F\      "filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
 syntax on
 
 " vundle
@@ -34,6 +48,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'gkz/vim-ls'
+Bundle 'pangloss/vim-javascript'
 
 filetype plugin indent on
 
