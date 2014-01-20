@@ -1,0 +1,20 @@
+// fake global package.json used as a memo
+bower
+coffee-script
+coffeelint
+docpad
+eslint
+forever
+gh
+grunt-cli
+grunt-init
+jade
+js-beautify
+jshint
+json5
+LiveScript
+lodash-cli
+readmetree
+stylus
+uglify-js
+yo
