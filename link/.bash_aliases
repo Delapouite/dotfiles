@@ -29,3 +29,6 @@ function server() {
     xdg-open "http://localhost:${port}/" &
     python -m SimpleHTTPServer "$port"
 }
+
+# js
+alias node='node --harmony'
