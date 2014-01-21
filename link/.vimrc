@@ -1,3 +1,6 @@
+" viM
+set nocompatible
+
 filetype off
 
 set clipboard=unnamedplus
@@ -5,7 +8,6 @@ set incsearch
 set list
 set listchars=eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
 set mouse=a
-set nocompatible
 set number
 set laststatus=2
 
@@ -41,15 +43,19 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'wavded/vim-stylus'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
-Bundle 'gkz/vim-ls'
+" filetypes
 Bundle 'pangloss/vim-javascript'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'gkz/vim-ls'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'wavded/vim-stylus'
 
+" https://github.com/gmarik/vundle/issues/176#issuecomment-12996269
+filetype off
 filetype plugin indent on
 
 " shortcuts
