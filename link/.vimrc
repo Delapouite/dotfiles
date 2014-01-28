@@ -47,6 +47,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
+Bundle 'mattn/emmet-vim'
 " filetypes
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
