@@ -10,6 +10,7 @@ grunt-cli
 grunt-init
 jade
 js-beautify
+jsbin
 jshint
 json5
 LiveScript
