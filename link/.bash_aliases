@@ -1,6 +1,7 @@
 # keyboards
 alias fr='setxkbmap fr'
 alias us='setxkbmap us'
+alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
 
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
@@ -30,5 +31,4 @@ function server() {
     python -m SimpleHTTPServer "$port"
 }
 
-# js
-alias node='node --harmony'
+alias ack='ack-grep'
