@@ -49,6 +49,7 @@ Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
 " filetypes
+Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'gkz/vim-ls'
@@ -63,6 +64,7 @@ filetype plugin indent on
 let mapleader=","
 map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
+" find
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 map <silent> <F4> :call JsBeautify()<CR>
 noremap <Up> <NOP>
