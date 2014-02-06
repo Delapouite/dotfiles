@@ -48,6 +48,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
+Bundle 'bronson/vim-trailing-whitespace'
 " filetypes
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
