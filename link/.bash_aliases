@@ -16,7 +16,7 @@ fi
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
-alias lsd='ls -l | grep "^d"'
+alias lsd='ll --group-directories-first'
 function lc () {
     cd "$@" && ls
 }
