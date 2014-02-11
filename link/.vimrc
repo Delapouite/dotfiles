@@ -18,7 +18,6 @@ set tabstop=4
 set autoindent
 
 " statusline
-
 set statusline=%F\      "filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
@@ -82,6 +81,9 @@ augroup BgHighlight
     autocmd WinEnter * set cul
     autocmd WinLeave * set nocul
 augroup END
+
+" syntax checkers
+let g:syntastic_javascript_checkers=['jscs', 'jshint']
 
 " functions
 function! WordFrequency() range
