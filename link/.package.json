@@ -11,6 +11,7 @@ grunt-init
 jade
 js-beautify
 jsbin
+jscs
 jshint
 json5
 LiveScript
@@ -18,5 +19,6 @@ lodash-cli
 readmetree
 stylus
 tin
+tldr
 uglify-js
 yo
