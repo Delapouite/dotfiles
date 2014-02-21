@@ -49,7 +49,7 @@ Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
 Bundle 'bronson/vim-trailing-whitespace'
 " filetypes
-Bundle 'jelera/vim-javascript-syntax'
+Bundle 'Delapouite/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'gkz/vim-ls'
