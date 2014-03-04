@@ -30,6 +30,10 @@ set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
+au InsertEnter * hi StatusLine ctermfg=red
+au InsertLeave * hi StatusLine ctermfg=white
+set timeoutlen=1000 ttimeoutlen=0
+
 syntax on
 
 " vundle
@@ -68,6 +72,7 @@ map <silent> <F2> :NERDTreeTabsToggle<CR>
 " find
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 map <silent> <F4> :call JsBeautify()<CR>
+" hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
