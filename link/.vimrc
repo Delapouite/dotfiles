@@ -19,8 +19,11 @@ set autoindent
 
 " statusline
 set statusline=%F\      "filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
+set statusline+=[
+set statusline+=%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}, "file format (unix, windows)
+set statusline+=%{getfsize(expand('%%:p'))}b "file size
+set statusline+=]
 set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
