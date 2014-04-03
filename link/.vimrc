@@ -6,7 +6,7 @@ filetype off
 set clipboard=unnamedplus
 set incsearch
 set list
-set listchars=eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
+set listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
 set mouse=a
 set number
 set laststatus=2
@@ -55,6 +55,7 @@ Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
 Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'mileszs/ack.vim'
 " filetypes
 Bundle 'othree/html5.vim'
 Bundle 'Delapouite/vim-javascript-syntax'
