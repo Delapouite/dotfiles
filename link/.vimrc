@@ -73,8 +73,8 @@ filetype plugin indent on
 let mapleader=","
 map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
-" find
-map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
+" find current word
+map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cword>")<CR>
 map <silent> <F4> :call JsBeautify()<CR>
 " hardcore
 noremap <Up> <NOP>
