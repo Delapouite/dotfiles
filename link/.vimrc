@@ -10,6 +10,7 @@ set listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
 set mouse=a
 set number
 set laststatus=2
+set hlsearch
 
 " tabs
 set shiftwidth=4
@@ -75,7 +76,8 @@ map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
 " find current word
 map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cword>")<CR>
-map <silent> <F4> :call JsBeautify()<CR>
+map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cWORD>")<CR>
+map <silent> <F5> :call JsBeautify()<CR>
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
