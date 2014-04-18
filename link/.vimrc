@@ -3,6 +3,7 @@ set nocompatible
 
 filetype off
 
+set t_Co=256
 set clipboard=unnamedplus
 set incsearch
 set list
@@ -38,6 +39,13 @@ au InsertEnter * hi StatusLine ctermfg=red
 au InsertLeave * hi StatusLine ctermfg=white
 set timeoutlen=1000 ttimeoutlen=0
 
+let g:airline_theme='solarized'
+let g:airline_left_sep='▶'
+let g:airline_right_sep='◀'
+let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand("%%:p"))}b'
+let g:airline_section_z='%c,%l/%L %P'
+let g:airline#extensions#tabline#enabled=1
+
 syntax on
 
 " vundle
@@ -57,6 +65,8 @@ Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
 Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'mileszs/ack.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 " filetypes
 Bundle 'othree/html5.vim'
 Bundle 'Delapouite/vim-javascript-syntax'
@@ -69,6 +79,8 @@ Bundle 'wavded/vim-stylus'
 " https://github.com/gmarik/vundle/issues/176#issuecomment-12996269
 filetype off
 filetype plugin indent on
+set background=dark
+colorscheme solarized
 
 " shortcuts
 let mapleader=","
@@ -89,9 +101,9 @@ highlight clear SignColumn "remove white background
 
 " line on focus
 augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cul
-    autocmd WinLeave * set nocul
+	autocmd!
+	autocmd WinEnter * set cul
+	autocmd WinLeave * set nocul
 augroup END
 
 " syntax checkers
