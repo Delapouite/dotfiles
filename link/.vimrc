@@ -13,6 +13,11 @@ set number
 set laststatus=2
 set hlsearch
 
+" dirs
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
 " tabs
 set shiftwidth=4
 set softtabstop=4
@@ -43,7 +48,7 @@ let g:airline_theme='solarized'
 let g:airline_left_sep='▶'
 let g:airline_right_sep='◀'
 let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand("%%:p"))}b'
-let g:airline_section_z='%c,%l/%L %P'
+let g:airline_section_z='%3c,%3l/%L %P'
 let g:airline#extensions#tabline#enabled=1
 
 syntax on
