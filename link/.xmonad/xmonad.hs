@@ -57,16 +57,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
-
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    , ((modm,               xK_p     ), spawn "dmenu_run")
 
     -- launch firefox
     , ((modm,               xK_f     ), spawn "firefox-trunk")
 
     -- launch chrome
-    , ((modm,               xK_g     ), spawn "google-chrome-unstable")
+    , ((modm,               xK_g     ), spawn "chromium-browser")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
