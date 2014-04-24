@@ -23,6 +23,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set autoindent
+set colorcolumn=80,120
 
 " statusline
 set statusline=%F\      "filename
