@@ -96,6 +96,8 @@ map <silent> <F2> :NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cword>")<CR>
 map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cWORD>")<CR>
 map <silent> <F5> :call JsBeautify()<CR>
+" emmet
+imap <silent> <F6> <c-y>,
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
