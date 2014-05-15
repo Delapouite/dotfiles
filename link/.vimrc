@@ -115,7 +115,8 @@ augroup BgHighlight
 augroup END
 
 " syntax checkers
-let g:syntastic_javascript_checkers=['jscs', 'jshint']
+let g:syntastic_javascript_checkers=['jscs', 'eslint', 'jshint']
+let g:syntastic_aggregate_errors=1
 
 " functions
 function! WordFrequency() range
