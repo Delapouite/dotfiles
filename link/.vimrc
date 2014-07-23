@@ -98,7 +98,7 @@ map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir
 map <silent> <F5> :call JsBeautify()<CR>
 " emmet
 imap <silent> <F6> <c-y>,
-+map <silent> <F7> :!gulp<CR>
+map <silent> <F7> :!gulp<CR>
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
