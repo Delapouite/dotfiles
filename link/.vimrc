@@ -98,6 +98,7 @@ map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir
 map <silent> <F5> :call JsBeautify()<CR>
 " emmet
 imap <silent> <F6> <c-y>,
++map <silent> <F7> :!gulp<CR>
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -115,7 +116,7 @@ augroup BgHighlight
 augroup END
 
 " syntax checkers
-let g:syntastic_javascript_checkers=['jscs', 'eslint', 'jshint']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_aggregate_errors=1
 
 " functions
