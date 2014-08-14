@@ -1,0 +1,12 @@
+{
+	env: {
+		browser: true
+	},
+	rules: {
+		'eqeqeq': [2, 'smart'],
+		'no-console': 0,
+		'no-global-strict': 0,
+		'quotes': [1, 'simple'],
+		'space-after-keywords': [1, 'always']
+	}
+}
