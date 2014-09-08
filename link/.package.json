@@ -2,12 +2,12 @@
 bower
 coffee-script
 coffeelint
-docpad
 eslint
 forever
 gh
 grunt-cli
 grunt-init
+gulp
 jade
 js-beautify
 jsbin
