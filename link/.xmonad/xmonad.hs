@@ -1,5 +1,5 @@
 import XMonad
-import XMonad.Actions.Volume
+-- import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
@@ -12,14 +12,14 @@ import qualified Data.Map        as M
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
-myTerminal = "terminator"
+myTerminal = "xterm"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
 
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 1
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -49,21 +49,21 @@ myFocusedBorderColor = "#cc0000"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- sound volume
-    [ ((modm,               xK_F10   ), lowerVolumeChannels volumeChannels 5 >> return())
-    , ((modm,               xK_F11   ), raiseVolumeChannels volumeChannels 5 >> return())
-    , ((modm,               xK_F12   ), toggleMuteChannels volumeChannels >> return())
+    -- [ ((modm,               xK_F10   ), lowerVolumeChannels volumeChannels 5 >> return())
+    -- , ((modm,               xK_F11   ), raiseVolumeChannels volumeChannels 5 >> return())
+    -- , ((modm,               xK_F12   ), toggleMuteChannels volumeChannels >> return())
 
     -- launch a terminal
-    , ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
 
     -- launch firefox
-    , ((modm,               xK_f     ), spawn "firefox-trunk")
+    , ((modm,               xK_f     ), spawn "firefox")
 
     -- launch chrome
-    , ((modm,               xK_g     ), spawn "chromium-browser")
+    , ((modm,               xK_g     ), spawn "chromium")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
