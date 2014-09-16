@@ -12,4 +12,3 @@ shopt -s checkwinsize
 . ~/.bash_aliases
 . ~/.bash_paths
 . ~/.bash_prompt
-. ~/.git_aliases
