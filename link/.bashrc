@@ -12,3 +12,4 @@ shopt -s checkwinsize
 . ~/.bash_aliases
 . ~/.bash_paths
 . ~/.bash_prompt
+. ~/bin/z/z.sh
