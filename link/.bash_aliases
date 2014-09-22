@@ -30,5 +30,3 @@ function server() {
     xdg-open "http://localhost:${port}/" &
     python -m SimpleHTTPServer "$port"
 }
-
-alias ack='ack-grep'
