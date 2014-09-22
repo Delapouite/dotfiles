@@ -1,3 +1,7 @@
+# X.org
+
+alias startx='ssh-agent startx'
+
 # keyboards
 alias fr='setxkbmap fr'
 alias us='setxkbmap us'
