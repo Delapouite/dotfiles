@@ -13,3 +13,7 @@ shopt -s checkwinsize
 . ~/.bash_paths
 . ~/.bash_prompt
 . ~/bin/z/z.sh
+if [ -f ~/.git-completion.bash ]; then
+	. ~/.git-completion.bash
+fi
+
