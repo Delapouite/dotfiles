@@ -73,6 +73,7 @@ Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'mileszs/ack.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'editorconfig/editorconfig-vim'
 " filetypes
 Bundle 'othree/html5.vim'
 Bundle 'Delapouite/vim-javascript-syntax'
