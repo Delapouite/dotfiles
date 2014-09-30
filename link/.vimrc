@@ -89,6 +89,9 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+" markdown instead of modula
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
 " shortcuts
 let mapleader=","
 map <silent> <F1> :NERDTreeFind<CR>
