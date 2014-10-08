@@ -1,5 +1,4 @@
 import XMonad
--- import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
@@ -38,9 +37,6 @@ myModMask = mod4Mask
 --
 myWorkspaces = ["1","2","3","4","5","6","7","8","9","10"]
 
--- declared to handle Headphone correctly
-volumeChannels = ["Master", "Headphone", "PCM"]
-
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor  = "#000000"
 myFocusedBorderColor = "#cc0000"
@@ -48,30 +44,32 @@ myFocusedBorderColor = "#cc0000"
 -- Key bindings. Add, modify or remove key bindings here.
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
-    -- sound volume
-    -- [ ((modm,               xK_F10   ), lowerVolumeChannels volumeChannels 5 >> return())
-    -- , ((modm,               xK_F11   ), raiseVolumeChannels volumeChannels 5 >> return())
-    -- , ((modm,               xK_F12   ), toggleMuteChannels volumeChannels >> return())
-
-    -- launch a terminal
+    -- Launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
-    -- launch dmenu
+    -- Sound volume
+    , ((modm,               xK_F1    ), spawn "amixer set Master toggle")
+    , ((modm,               xK_F2    ), spawn "amixer set Master 3%-")
+    , ((modm,               xK_F3    ), spawn "amixer set Master 3%+")
+    , ((modm,               xK_F4    ), spawn "amixer set Mic toggle")
+
+    -- Screen brightness
+    , ((modm,               xK_F5    ), spawn "xbacklight -20")
+    , ((modm,               xK_F6    ), spawn "xbacklight +20")
+
+    -- Launch applications
     , ((modm,               xK_p     ), spawn "dmenu_run")
-
-    -- launch firefox
+    , ((modm,               xK_d     ), spawn "deadbeef")
     , ((modm,               xK_f     ), spawn "firefox")
-
-    -- launch chrome
     , ((modm,               xK_g     ), spawn "chromium")
 
-    -- close focused window
+    -- Close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
-     -- Rotate through the available layout algorithms
+    -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
 
-    --  Reset the layouts on the current workspace to default
+    -- Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
