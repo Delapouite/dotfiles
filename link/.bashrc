@@ -3,6 +3,8 @@ HISTCONTROL=ignoreboth
 HISTFILESIZE=2000
 HISTSIZE=1000
 
+export NODE_ENV=development
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -16,4 +18,3 @@ shopt -s checkwinsize
 if [ -f ~/.git-completion.bash ]; then
 	. ~/.git-completion.bash
 fi
-
