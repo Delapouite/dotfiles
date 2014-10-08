@@ -36,7 +36,7 @@ myModMask = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces = ["1","2","3","4","5","6","7","8","9","10"]
 
 -- declared to handle Headphone correctly
 volumeChannels = ["Master", "Headphone", "PCM"]
@@ -127,11 +127,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ]
     ++
 
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
+    -- mod-[² & é .. ç à], Switch to workspace N
+    -- mod-shift-[² & é .. ç à], Move client to workspace N
+    -- use xev to find key numbers
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [0x26, 0xe9, 0x22, 0x27, 0x28, 0x2d, 0xe8, 0x5f, 0xe7, 0xe0]
+        | (i, k) <- zip (XMonad.workspaces conf) [0xb2, 0x26, 0xe9, 0x22, 0x27, 0x28, 0x2d, 0xe8, 0x5f, 0xe7, 0xe0]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
 
