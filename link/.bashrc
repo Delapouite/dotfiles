@@ -1,5 +1,5 @@
 # don't put duplicate lines or lines starting with space in the history.
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=2000
 HISTSIZE=1000
 

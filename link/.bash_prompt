@@ -30,7 +30,7 @@ BWhite='\[\e[1;37m\]'
 
 # User input is colored in white
 # the trap will reset the colors before execution of commands
-PS1="${BOrange}\A ${Cyan}\j ${Green}\u${Color_Off}@${Blue}\h${Color_Off}:${Yellow}\w${BPurple}\$(parse_git_branch)\$(parse_git_status)${Color_Off}${Pink}\n▶ ${BWhite}"
+PS1="${BOrange}\A ${Cyan}\j ${Red}\#/\! ${Green}\u${Color_Off}@${Blue}\h${Color_Off}:${Yellow}\w${BPurple}\$(parse_git_branch)\$(parse_git_status)${Color_Off}${Pink}\n▶ ${BWhite}"
 
 # reset color after prompt
 trap "echo -ne '\e[0m'" DEBUG
