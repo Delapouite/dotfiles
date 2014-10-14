@@ -51,6 +51,7 @@ let g:airline_right_sep='◀'
 let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand("%%:p"))}b'
 let g:airline_section_z='%3c,%3l/%L %P'
 let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_nr_show=1
 
 syntax on
 
