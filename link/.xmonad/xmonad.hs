@@ -1,6 +1,10 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.Dishes
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
 import XMonad.Util.Run(spawnPipe)
 import Data.Monoid
 import System.IO
@@ -9,37 +13,14 @@ import System.Exit
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
-myTerminal = "xterm"
-
--- Whether focus follows the mouse pointer.
-myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
-
--- Width of the window border in pixels.
-myBorderWidth = 1
-
--- modMask lets you specify which modkey you want to use. The default
--- is mod1Mask ("left alt").  You may also consider using mod3Mask
--- ("right alt"), which does not conflict with emacs keybindings. The
--- "windows key" is usually mod4Mask.
-myModMask = mod4Mask
-
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
 -- workspace name. The number of workspaces is determined by the length
 -- of this list.
 --
--- A tagging example:
---
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces = ["1","2","3","4","5","6","7","8","9","10"]
-
--- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = "#000000"
-myFocusedBorderColor = "#cc0000"
+myWorkspaces = map show [0..10]
 
 -- Key bindings. Add, modify or remove key bindings here.
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -133,8 +114,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
 
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
+    -- mod-{a,z,r}, Switch to physical/Xinerama screens 1, 2, or 3
+    -- mod-shift-{a,z,r}, Move client to screen 1, 2, or 3
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_a, xK_z, xK_e] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
@@ -171,19 +152,29 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
-myLayout = tiled ||| Mirror tiled ||| Full
+classicLayouts = tiled ||| Mirror tiled ||| Full
   where
-    -- default tiling algorithm partitions the screen into two panes
+    -- Dfault tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
-
-    -- The default number of windows in the master pane
+    -- Default number of windows in the master pane
     nmaster = 1
-
     -- Default proportion of screen occupied by master pane
     ratio   = 2/3
-
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
+
+-- logs & daemons
+dishLayout = limitWindows 5 $ Dishes nmaster ratio
+  where
+    nmaster = 1
+    ratio = 1/5
+
+-- music & video players
+noBordersLayout = noBorders $ Full
+
+myLayoutHook = onWorkspace  "0"         dishLayout $
+               onWorkspaces ["9", "10"] noBordersLayout $
+                                        classicLayouts
 
 -- Window rules:
 
@@ -245,27 +236,25 @@ myStartupHook = return ()
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
-defaults = defaultConfig {
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
 
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
+main = do
+  xmonad $ defaultConfig {
+    terminal           = "xterm",
+    focusFollowsMouse  = True,
+    borderWidth        = 2,
+    normalBorderColor  = "#000000",
+    focusedBorderColor = "#cc0000",
+    modMask            = mod4Mask,
+    workspaces         = myWorkspaces,
 
-      -- hooks, layouts
-        layoutHook         = myLayout,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
-    }
+  -- key bindings
+    keys               = myKeys,
+    mouseBindings      = myMouseBindings,
 
--- Run xmonad with the settings you specify. No need to modify this.
-main = xmonad defaults
-
+  -- hooks, layouts
+    layoutHook         = myLayoutHook,
+    manageHook         = myManageHook,
+    handleEventHook    = myEventHook,
+    logHook            = myLogHook,
+    startupHook        = myStartupHook
+  }
