@@ -164,15 +164,21 @@ classicLayouts = tiled ||| Mirror tiled ||| Full
     delta   = 3/100
 
 -- logs & daemons
-dishLayout = limitWindows 5 $ Dishes nmaster ratio
+dishesLayout = limitWindows 5 $ Dishes nmaster ratio
   where
     nmaster = 1
     ratio = 1/5
 
+curtainsLayout = Mirror dishesLayout
+
+dishesFirst = dishesLayout ||| curtainsLayout
+curtainsFirst = curtainsLayout ||| dishesLayout
+
 -- music & video players
 noBordersLayout = noBorders $ Full
 
-myLayoutHook = onWorkspace  "0"         dishLayout $
+myLayoutHook = onWorkspace  "0"         dishesFirst $
+               onWorkspace  "4"         curtainsFirst $
                onWorkspaces ["9", "10"] noBordersLayout $
                                         classicLayouts
 
