@@ -95,6 +95,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " shortcuts
 let mapleader=","
+noremap <silent> <A-Tab> <C-w><C-w><CR>
 map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
 " find current word
@@ -102,7 +103,7 @@ map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir
 map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cWORD>")<CR>
 map <silent> <F5> :call JsBeautify()<CR>
 " emmet
-imap <silent> <F6> <c-y>,
+imap <silent> <F6> <C-y>,
 map <silent> <F7> :!gulp<CR>
 " hardcore
 noremap <Up> <NOP>
