@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.GridSelect
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Dishes
@@ -22,6 +23,21 @@ import qualified Data.Map        as M
 --
 myWorkspaces = map show [0..10]
 
+-- GridSelect color scheme
+myColorizer = colorRangeFromClassName
+  (0x00,0x2B,0x36) --lowest inactive bg
+  (0x93,0xA1,0xA1) --highest inactive bg
+  (0xDC,0x32,0x2F) --active bg
+  (0xCC,0xCC,0xCC) --inactive fg
+  (0xFF,0xFF,0xFF) --active fg
+
+-- GridSelect theme
+myGSConfig colorizer = (buildDefaultGSConfig myColorizer)
+  { gs_cellheight  = 150
+  , gs_cellwidth   = 300
+  , gs_cellpadding = 10
+  }
+
 -- Key bindings. Add, modify or remove key bindings here.
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
@@ -43,6 +59,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_d     ), spawn "deadbeef")
     , ((modm,               xK_f     ), spawn "firefox")
     , ((modm,               xK_g     ), spawn "chromium")
+
+    , ((modm,               xK_w     ),  goToSelected $ myGSConfig myColorizer)
 
     -- Close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -249,7 +267,7 @@ main = do
     focusFollowsMouse  = True,
     borderWidth        = 2,
     normalBorderColor  = "#000000",
-    focusedBorderColor = "#cc0000",
+    focusedBorderColor = "#DC322F",
     modMask            = mod4Mask,
     workspaces         = myWorkspaces,
 
