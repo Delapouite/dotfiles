@@ -2,6 +2,7 @@
 HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=2000
 HISTSIZE=1000
+HISTIGNORE="bg:cd:clear:exit:fg:l:ll:ls:pwd:startx:sudo shutdown now:sudo wifi-menu:vim ."
 
 export NODE_ENV=development
 
