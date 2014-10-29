@@ -95,7 +95,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " shortcuts
 let mapleader=","
-noremap <silent> <A-Tab> <C-w><C-w><CR>
+noremap <silent> <A-Tab> <C-w><C-w>
 map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
 " find current word
