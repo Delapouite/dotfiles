@@ -1,8 +1,8 @@
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth:erasedups
-HISTFILESIZE=2000
+HISTFILESIZE=4200
 HISTSIZE=1000
-HISTIGNORE="bg:cd:clear:exit:fg:l:ll:ls:pwd:startx:sudo shutdown now:sudo wifi-menu:vim ."
+HISTIGNORE="bg:cd:cd ..:clear:exit:fg:l:ll:ls:pwd:startx:sudo shutdown now:sudo wifi-menu:vim ."
 
 export NODE_ENV=development
 
