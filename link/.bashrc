@@ -16,7 +16,13 @@ shopt -s checkwinsize
 . ~/.bash_aliases
 . ~/.bash_paths
 . ~/.bash_prompt
+
+# shortcut jump
 . ~/bin/z/z.sh
+
+complete -cf sudo
+complete -cf man
+
 if [ -f ~/.git-completion.bash ]; then
 	. ~/.git-completion.bash
 fi
