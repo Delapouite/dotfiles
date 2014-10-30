@@ -1,3 +1,4 @@
+EDITOR=vim
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=4200
