@@ -41,10 +41,6 @@ set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
-au InsertEnter * hi StatusLine ctermfg=red
-au InsertLeave * hi StatusLine ctermfg=white
-set timeoutlen=1000 ttimeoutlen=0
-
 let g:airline_theme='solarized'
 let g:airline_left_sep='▶'
 let g:airline_right_sep='◀'
@@ -52,6 +48,9 @@ let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand(
 let g:airline_section_z='%3c,%3l/%L %P'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1
+
+set cursorline
+set cursorcolumn
 
 syntax on
 
@@ -95,6 +94,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " shortcuts
 let mapleader=","
+" toggle between windows
 noremap <silent> <A-Tab> <C-w><C-w>
 map <silent> <F1> :NERDTreeFind<CR>
 map <silent> <F2> :NERDTreeTabsToggle<CR>
@@ -104,12 +104,19 @@ map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir
 map <silent> <F5> :call JsBeautify()<CR>
 " emmet
 imap <silent> <F6> <C-y>,
+" external
 map <silent> <F7> :!gulp<CR>
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+inoremap jj <ESC>
 
 " gitgutter
 highlight clear SignColumn "remove white background
