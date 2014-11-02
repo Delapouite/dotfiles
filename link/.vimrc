@@ -51,6 +51,7 @@ let g:airline#extensions#tabline#buffer_nr_show=1
 
 set cursorline
 set cursorcolumn
+set scrolloff=5
 
 syntax on
 
