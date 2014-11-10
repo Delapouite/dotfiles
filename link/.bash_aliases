@@ -25,6 +25,8 @@ function lc () {
     cd "$@" && ls
 }
 
+alias cal='cal --monday'
+
 # tar
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
