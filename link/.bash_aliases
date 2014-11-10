@@ -34,5 +34,5 @@ alias extar='tar -xvzf'
 function server() {
     local port="${1:-8000}"
     xdg-open "http://localhost:${port}/" &
-    python -m SimpleHTTPServer "$port"
+    python -m http.server "$port"
 }
