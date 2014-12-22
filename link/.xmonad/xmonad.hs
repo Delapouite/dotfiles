@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Actions.GridSelect
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -12,7 +13,8 @@ import System.IO
 import System.Exit
 
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import qualified Data.Map as M
+
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -20,7 +22,6 @@ import qualified Data.Map        as M
 -- of this list.
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
 myWorkspaces = map show [0..10]
 
 -- GridSelect color scheme
@@ -101,6 +102,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
 
+    -- Move to next workspace
+    , ((modm,               xK_Left  ), prevWS)
+
+    -- Move to next workspace
+    , ((modm,               xK_Right ), nextWS)
+
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
 
@@ -113,7 +120,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    --
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
@@ -132,8 +138,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
 
-    -- mod-{a,z,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{a,z,r}, Move client to screen 1, 2, or 3
+    -- mod-{a,z,e}, Switch to physical/Xinerama screens 1, 2, or 3
+    -- mod-shift-{a,z,e}, Move client to screen 1, 2, or 3
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_a, xK_z, xK_e] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
@@ -151,8 +157,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-button3, Set the window to floating mode and resize by dragging
     , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
                                        >> windows W.shiftMaster))
-
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
 -- Layouts:
@@ -170,9 +174,9 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
-classicLayouts = tiled ||| Mirror tiled ||| Full
+tiersLayouts = tiled ||| Mirror tiled ||| Full
   where
-    -- Dfault tiling algorithm partitions the screen into two panes
+    -- Default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
     -- Default number of windows in the master pane
     nmaster = 1
@@ -181,12 +185,20 @@ classicLayouts = tiled ||| Mirror tiled ||| Full
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
+halvesLayouts = tiled ||| Mirror tiled ||| Full
+  where
+    tiled   = Tall nmaster delta ratio
+    nmaster = 1
+    ratio   = 1/2
+    delta   = 3/100
+
 -- logs & daemons
 dishesLayout = limitWindows 5 $ Dishes nmaster ratio
   where
     nmaster = 1
     ratio = 1/5
 
+-- chats
 curtainsLayout = Mirror dishesLayout
 
 dishesFirst = dishesLayout ||| curtainsLayout
@@ -197,8 +209,9 @@ noBordersLayout = noBorders $ Full
 
 myLayoutHook = onWorkspace  "0"         dishesFirst $
                onWorkspace  "4"         curtainsFirst $
+               onWorkspaces ["7", "8"]  halvesLayouts $
                onWorkspaces ["9", "10"] noBordersLayout $
-                                        classicLayouts
+                                        tiersLayouts
 
 -- Window rules:
 
@@ -215,7 +228,6 @@ myLayoutHook = onWorkspace  "0"         dishesFirst $
 -- 'className' and 'resource' are used below.
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
