@@ -20,8 +20,9 @@ shopt -s checkwinsize
 # shortcut jump
 . ~/bin/z/z.sh
 
-complete -cf sudo
-complete -cf man
+complete -cf sudo man
+# these commands only deal with dirs
+complete -d cd pushd rmdir
 
 if [ -f ~/.git-completion.bash ]; then
 	. ~/.git-completion.bash
