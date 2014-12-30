@@ -5,6 +5,7 @@ alias startx='ssh-agent startx'
 # keyboards
 alias fr='setxkbmap fr'
 alias us='setxkbmap us'
+alias qwfr='setxkbmap us_qwerty-fr'
 alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
 
 # enable color support
@@ -31,6 +32,10 @@ alias cal='cal --monday'
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
 
+alias zik='ncmpcpp'
+
+# network
+alias lservers='netstat -lnpt'
 function server() {
     local port="${1:-8000}"
     xdg-open "http://localhost:${port}/" &
