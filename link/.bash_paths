@@ -4,3 +4,4 @@ export PATH=~/slimerjs:$PATH
 export PATH=~/scala/bin:$PATH
 export PATH=~/play:$PATH
 export PATH=~/.dotfiles/bin:$PATH
+export PATH=~/.gem/ruby/2.1.0/bin:$PATH
