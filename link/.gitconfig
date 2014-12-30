@@ -4,9 +4,15 @@
 [core]
 	editor = vim
 [alias]
+	br = branch -avv
 	ci = commit -v
 	co = checkout
+	diffw = diff --word-diff
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status
 [push]
 	default = simple
+[status]
+	showUntrackedFiles = all
+[diff]
+	wordRegex = .
