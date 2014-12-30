@@ -41,7 +41,7 @@ set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
-let g:airline_theme='solarized'
+let g:airline_theme='base16'
 let g:airline_left_sep='▶'
 let g:airline_right_sep='◀'
 let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand("%%:p"))}b'
@@ -61,26 +61,36 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " bundles
-Bundle 'airblade/vim-gitgutter'
+
+" themes
+Bundle 'altercation/vim-colors-solarized'
+" use this solarized theme because of black on black bug
+Bundle 'chriskempson/base16-vim'
+" ui
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline'
+" cvs
+Bundle 'tpope/vim-fugitive'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-surround'
+Bundle 'mattn/emmet-vim'
+" search
+Bundle 'kien/ctrlp.vim'
+Bundle 'mileszs/ack.vim'
+" code style
+Bundle 'scrooloose/syntastic'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
-Bundle 'mattn/emmet-vim'
-Bundle 'bronson/vim-trailing-whitespace'
-Bundle 'mileszs/ack.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'bronson/vim-trailing-whitespace'
 " filetypes
 Bundle 'othree/html5.vim'
 Bundle 'Delapouite/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'gkz/vim-ls'
+Bundle 'leafgarland/typescript-vim'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'wavded/vim-stylus'
 
@@ -88,7 +98,7 @@ Bundle 'wavded/vim-stylus'
 filetype off
 filetype plugin indent on
 set background=dark
-colorscheme solarized
+colorscheme base16-solarized
 
 " markdown instead of modula
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -116,8 +126,13 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
-
+" esc hatch
 inoremap jj <ESC>
+" indents
+nmap <S-Tab> <<
+nmap <Tab> >>
+vmap <S-Tab> <gv
+vmap <Tab> >gv
 
 " gitgutter
 highlight clear SignColumn "remove white background
