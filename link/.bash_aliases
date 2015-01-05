@@ -6,6 +6,7 @@ alias startx='ssh-agent startx'
 alias fr='setxkbmap fr'
 alias us='setxkbmap us'
 alias qwfr='setxkbmap us_qwerty-fr'
+alias bepo='setxkbmap fr bepo'
 alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
 
 # enable color support
@@ -32,6 +33,7 @@ alias cal='cal --monday'
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
 
+alias adios='systemctl poweroff'
 alias zik='ncmpcpp'
 
 # network
