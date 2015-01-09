@@ -3,6 +3,7 @@
 alias startx='ssh-agent startx'
 
 # keyboards
+
 alias fr='setxkbmap fr'
 alias us='setxkbmap us'
 alias qwfr='setxkbmap us_qwerty-fr'
@@ -19,6 +20,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # ls
+
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
@@ -27,16 +29,19 @@ function lc () {
     cd "$@" && ls
 }
 
-alias cal='cal --monday'
 
 # tar
+
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
 
 alias adios='systemctl poweroff'
+alias cal='cal --monday'
+alias open='xdg-open'
 alias zik='ncmpcpp'
 
 # network
+
 alias lservers='netstat -lnpt'
 function server() {
     local port="${1:-8000}"
