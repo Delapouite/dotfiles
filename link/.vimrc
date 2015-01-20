@@ -117,6 +117,7 @@ map <silent> <F5> :call JsBeautify()<CR>
 imap <silent> <F6> <C-y>,
 " external
 map <silent> <F7> :!gulp<CR>
+noremap <silent><F8> :set relativenumber!<cr>
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -143,6 +144,9 @@ augroup BgHighlight
 	autocmd WinEnter * set cul
 	autocmd WinLeave * set nocul
 augroup END
+
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
 
 " syntax checkers
 let g:syntastic_javascript_checkers=['eslint']
