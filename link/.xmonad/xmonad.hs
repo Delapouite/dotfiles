@@ -6,6 +6,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Dishes
 import XMonad.Layout.LimitWindows
+import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Util.Run(spawnPipe)
@@ -177,7 +178,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
-tiersLayouts = tiled ||| Mirror tiled ||| Full
+tiersLayouts = tiled ||| Mirror tiled ||| Full ||| Grid
   where
     -- Default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -188,7 +189,7 @@ tiersLayouts = tiled ||| Mirror tiled ||| Full
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
-halvesLayouts = tiled ||| Mirror tiled ||| Full
+halvesLayouts = tiled ||| Mirror tiled ||| Full ||| Grid
   where
     tiled   = Tall nmaster delta ratio
     nmaster = 1
@@ -204,8 +205,8 @@ dishesLayout = limitWindows 5 $ Dishes nmaster ratio
 -- chats
 curtainsLayout = Mirror dishesLayout
 
-dishesFirst = dishesLayout ||| curtainsLayout
-curtainsFirst = curtainsLayout ||| dishesLayout
+dishesFirst = dishesLayout ||| curtainsLayout ||| Grid
+curtainsFirst = curtainsLayout ||| dishesLayout ||| Grid
 
 -- music & video players
 noBordersLayout = noBorders $ Full
