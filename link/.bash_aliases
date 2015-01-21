@@ -4,10 +4,10 @@ alias startx='ssh-agent startx'
 
 # keyboards
 
-alias fr='setxkbmap fr'
-alias us='setxkbmap us'
-alias qwfr='setxkbmap us_qwerty-fr'
-alias bepo='setxkbmap fr bepo'
+alias fr='kbswitch.sh fr'
+alias us='kbswitch.sh us'
+alias qwfr='kbswitch.sh us_qwerty-fr'
+alias bepo='kbswitch.sh fr bepo'
 alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
 
 # enable color support
