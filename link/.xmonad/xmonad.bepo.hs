@@ -13,6 +13,7 @@ import XMonad.Util.Run(spawnPipe)
 import Data.Monoid
 import System.IO
 import System.Exit
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -48,10 +49,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- Sound volume
-    , ((modm,               xK_F1    ), spawn "amixer set Master toggle")
-    , ((modm,               xK_F2    ), spawn "amixer set Master 3%-")
-    , ((modm,               xK_F3    ), spawn "amixer set Master 3%+")
-    , ((modm,               xK_F4    ), spawn "amixer set Mic toggle")
+    , ((0,               xF86XK_AudioMute       ), spawn "amixer set Master toggle")
+    , ((0,               xF86XK_AudioLowerVolume), spawn "amixer set Master 3%-")
+    , ((0,               xF86XK_AudioRaiseVolume), spawn "amixer set Master 3%+")
+    , ((modm,            xK_F4                  ), spawn "amixer set Mic toggle")
 
     -- Screen brightness
     , ((modm,               xK_F5    ), spawn "xbacklight -10")
@@ -59,9 +60,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Launch applications
     , ((modm,               xK_p     ), spawn "dmenu_run")
+    , ((0,                  xF86XK_Calculator), spawn "dmenu_run")
     , ((modm,               xK_d     ), spawn "deadbeef")
     , ((modm,               xK_f     ), spawn "firefox")
+    , ((0,                  xF86XK_HomePage), spawn "firefox")
     , ((modm,               xK_g     ), spawn "chromium")
+    , ((0,                  xF86XK_Mail), spawn "chromium")
+
 
     , ((modm,               xK_agrave),  goToSelected $ myGSConfig myColorizer)
 
