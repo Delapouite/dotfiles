@@ -17,6 +17,12 @@ import System.Exit
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
+-- KEYS
+-- F* row: medias
+-- Numbers row: 11 workspaces
+-- Upper row: 3 screens & free for app customs
+-- Home row: 4 free for app customs & shift apps & moves
+-- Bottom row : xmonad
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -59,23 +65,37 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Launch applications
     , ((modm,               xK_p     ), spawn "dmenu_run")
-    , ((modm,               xK_d     ), spawn "deadbeef")
-    , ((modm,               xK_f     ), spawn "firefox")
-    , ((modm,               xK_g     ), spawn "chromium")
+    , ((modm .|. shiftMask, xK_d     ), spawn "deadbeef")
+    , ((modm .|. shiftMask, xK_f     ), spawn "firefox")
+    , ((modm .|. shiftMask, xK_g     ), spawn "chromium")
+
+    -- Bottom row, xmonad related
 
     , ((modm,               xK_w     ),  goToSelected $ myGSConfig myColorizer)
 
+    -- Resize viewed windows to the correct size
+    , ((modm,               xK_x     ), refresh)
+
     -- Close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
+
+    -- Push window back into tiling
+    , ((modm,               xK_v     ), withFocused $ windows . W.sink)
+
+    , ((modm,               xK_b     ), withFocused toggleBorder)
+
+    -- Quit xmonad
+    , ((modm .|. shiftMask, xK_n     ), io (exitWith ExitSuccess))
+
+    -- Restart xmonad
+    , ((modm              , xK_n     ), spawn "xmonad --recompile; xmonad --restart")
+
 
     -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
 
     -- Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
-    -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
 
     -- Move focus to the next window
     , ((modm,               xK_Tab   ), windows W.focusDown)
@@ -110,11 +130,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Move to next workspace
     , ((modm,               xK_Right ), nextWS)
 
-    -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
-    , ((modm,               xK_b     ), withFocused toggleBorder)
-
     -- Increment the number of windows in the master area
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
 
@@ -125,12 +140,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     -- , ((modm              , xK_y     ), sendMessage ToggleStruts)
-
-    -- Quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
-    -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     ]
     ++
 
@@ -138,7 +147,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-shift-[² & é .. ç à], Move client to workspace N
     -- use xev to find key numbers
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [0xb2, 0x26, 0xe9, 0x22, 0x27, 0x28, 0x2d, 0xe8, 0x5f, 0xe7, 0xe0]
+        | (i, k) <- zip (XMonad.workspaces conf)
+            [ xK_twosuperior
+            , xK_ampersand
+            , xK_eacute
+            , xK_quotedbl
+            , xK_apostrophe
+            , xK_parenleft
+            , xK_minus
+            , xK_egrave
+            , xK_underscore
+            , xK_ccedilla
+            , xK_agrave
+            ]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
 
