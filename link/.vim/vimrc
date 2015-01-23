@@ -102,6 +102,7 @@ colorscheme base16-solarized
 
 " markdown instead of modula
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
 
 " shortcuts
 let mapleader=","
@@ -127,8 +128,6 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
-" esc hatch
-inoremap jj <ESC>
 " indents
 nmap <S-Tab> <<
 nmap <Tab> >>
@@ -167,3 +166,9 @@ function! WordFrequency() range
 	sort i
 endfunction
 command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
+
+if !empty(system("setxkbmap -print|grep bepo"))
+    source ~/.vim/vimrc.bepo
+else
+    source ~/.vim/vimrc.azerty
+endif
