@@ -1,8 +1,8 @@
 # us, fr, us_qwerty-fr, fr bepo
-if [[ -n "$1" ]]; then
-	setxkbmap $1
+if [[ "$1" == "bepo" ]]; then
+	setxkbmap fr bepo
 else
-	setxkbmap fr
+	setxkbmap $1
 fi
 
 # using the above command unfortunately reset custom xmodmap bindings
