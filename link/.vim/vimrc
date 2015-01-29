@@ -83,6 +83,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'editorconfig/editorconfig-vim'
+" show them in red and offers :FixWhitespace
 Bundle 'bronson/vim-trailing-whitespace'
 " filetypes
 Bundle 'othree/html5.vim'
@@ -118,7 +119,9 @@ map <silent> <F5> :call JsBeautify()<CR>
 imap <silent> <F6> <C-y>,
 " external
 map <silent> <F7> :!gulp<CR>
-noremap <silent><F8> :set relativenumber!<cr>
+noremap <silent><F8> :set relativenumber!<CR>
+map <silent> <F12> :e $MYVIMRC<CR>
+
 " hardcore
 noremap <Up> <NOP>
 noremap <Down> <NOP>
