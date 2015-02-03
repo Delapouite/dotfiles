@@ -73,6 +73,8 @@ Bundle 'bling/vim-airline'
 " cvs
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+" expand
+" cs"' ds"
 Bundle 'tpope/vim-surround'
 Bundle 'mattn/emmet-vim'
 " search
