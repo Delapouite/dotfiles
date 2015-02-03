@@ -1,11 +1,10 @@
-! to reload : xrdb ~/.Xresources
-xterm*faceName: DejaVu Sans Mono Book
-xterm*faceSize: 11
-xterm*selectToClipboard: true
+! to reload : xrdb -merge ~/.X/light
 
 ! Base16 Solarized
 ! https://github.com/chriskempson/base16
 ! Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
+
+! light
 
 #define base00 #002b36
 #define base01 #073642
@@ -23,9 +22,11 @@ xterm*selectToClipboard: true
 #define base0D #268bd2
 #define base0E #6c71c4
 #define base0F #d33682
-*.foreground: base05
-*.background: base00
-*.cursorColor: base05
+
+*.foreground: base02
+*.background: base07
+*.cursorColor: base02
+
 *.color0: base00
 *.color1: base08
 *.color2: base0B
@@ -34,6 +35,7 @@ xterm*selectToClipboard: true
 *.color5: base0E
 *.color6: base0C
 *.color7: base05
+
 *.color8: base03
 *.color9: base09
 *.color10: base01

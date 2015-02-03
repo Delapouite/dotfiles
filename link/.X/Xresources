@@ -1,0 +1,5 @@
+! to reload : xrdb ~/.X/Xresources
+xterm*faceName: DejaVu Sans Mono Book
+xterm*faceSize: 11
+xterm*selectToClipboard: true
+
