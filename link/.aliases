@@ -10,7 +10,8 @@ alias qwfr='kbswitch.sh us_qwerty-fr'
 alias bepo='kbswitch.sh bepo'
 alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
 
-# enable color support
+# colors
+
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -18,6 +19,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+alias bgdark='xrdb -merge ~/.X/dark'
+alias bglight='xrdb -merge ~/.X/light'
 
 # ls
 
