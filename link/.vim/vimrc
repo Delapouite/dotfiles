@@ -121,6 +121,7 @@ Bundle 'gkz/vim-ls'
 Bundle 'leafgarland/typescript-vim'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'wavded/vim-stylus'
+Bundle 'hail2u/vim-css3-syntax'
 
 " use the gx command to open URL
 " https://github.com/gmarik/vundle/issues/176#issuecomment-12996269
