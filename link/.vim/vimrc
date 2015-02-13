@@ -115,7 +115,7 @@ Bundle 'bronson/vim-trailing-whitespace'
 " filetypes
 Bundle 'othree/html5.vim'
 " temp fork of othree for experimentations
-Bundle 'Delapouite/yajs.vim'
+" Bundle 'Delapouite/yajs.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'gkz/vim-ls'
 Bundle 'leafgarland/typescript-vim'
@@ -157,7 +157,8 @@ noremap <silent><F8> :set relativenumber!<CR>
 noremap <silent> <F9> <C-t>
 noremap <silent> <F10> <C-]>
 " goto here
-map <silent> <F12> :e $MYVIMRC<CR>
+map <silent> <F12> :tabedit $MYVIMRC<CR>
+map <silent> <S-F12> :tabedit $VIMRUNTIME<CR>
 
 " hardcore
 noremap <Up> <NOP>
