@@ -1,6 +1,4 @@
 export PATH=~/bin:$PATH
-export PATH=~/node/bin:$PATH
-export PATH=~/phantomjs/bin:$PATH
-export PATH=~/slimerjs:$PATH
 export PATH=~/.dotfiles/bin:$PATH
 export PATH=~/.gem/ruby/2.2.0/bin:$PATH
+export PATH=~/.npm-global/bin:$PATH
