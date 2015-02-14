@@ -1,3 +1,6 @@
+" use :W to sudo-write the current buffer
+command! W w !sudo tee % > /dev/null
+
 function! WordFrequency() range
 	let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
 	let frequencies = {}

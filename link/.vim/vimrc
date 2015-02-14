@@ -13,7 +13,7 @@ syntax on
 " display invisible chars
 set list
 set listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:>,precedes:<
-" replace with fancy chars if declared
+" replace with fancy chars if declared (see after/syntax/javascript.vim)
 set conceallevel=2
 
 " crosshair on focus
@@ -175,6 +175,14 @@ nmap <S-Tab> <<
 nmap <Tab> >>
 vmap <S-Tab> <gv
 vmap <Tab> >gv
+
+" auto apply
+augroup configurationFiles
+	autocmd! BufWritePost vimrc source $MYVIMRC
+	autocmd! BufWritePost .vimrc source $MYVIMRC
+	autocmd! BufWritePost _vimrc source $MYVIMRC
+	autocmd! BufWritePost Xresources !xrdb -load ~/.X/Xresources
+augroup END
 
 " functions
 source ~/.vim/functions.vim
