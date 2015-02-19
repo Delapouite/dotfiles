@@ -1,0 +1,123 @@
+# SCREEN CUSTOMIZATION
+# --------------------
+# Select whether you want to see the copyright notice during startup.
+
+startup_message off
+
+# Sets whether screen will automatically detach upon hangup, which saves all your running 
+# programs until they are resumed with a screen -r command. When turned off, a hangup 
+# signal will terminate screen and all the processes it contains. Autodetach is on by 
+# default.
+
+autodetach on
+
+# Same as the scrollback command except that the default setting for new windows is changed.
+
+defscrollback 3000
+
+
+# TERMINAL CUSTOMIZATION
+# ----------------------
+# This command configures the use and emulation of the terminal’s hardstatus line. The first 
+# form toggles whether screen will use the hardware status line to display messages. If the 
+# flag is set to ‘off’, these messages are overlaid in reverse video mode at the display line. 
+
+
+#G Explanation of hardstatus line.
+# Here is the full list of supported escapes:
+#
+#   %      the escape character itself
+#
+#   a      either 'am' or 'pm'
+#   A      either 'AM' or 'PM'
+#
+#   c      current time HH:MM in 24h format
+#   C      current time HH:MM in 12h format
+#
+#   y      last two digits of the year number
+#   Y      full year number
+#
+#   d      day number
+#   D      weekday name
+#   m      month number
+#   M      month name
+#   s      seconds
+#
+#   f      flags of the window
+#   F      sets %? to true if the window has the focus
+#
+#   h      hardstatus of the window
+#   H      hostname of the system
+#   l      current load of the system
+#
+#   n      window number
+#   t      window title
+#
+#   u      all other users on this window
+#
+#   w      all window numbers and names. With '-'  quailifier:  up  to  the
+#          current  window;  with  '+'  qualifier: starting with the window
+#
+#   W      all window numbers and names except the current one
+# 
+#   ?      the part to the next ’%?’ is displayed only if a ’%’ escape inside the part 
+#          expands to a non-empty string
+# 
+#   :      else part of ’%?’
+# 
+#   =      pad the string to the display’s width (like TeX’s hfill). If a number is 
+#          specified, pad to the percentage of the window’s width.  A ’0’ qualifier tells 
+#          screen to treat  the  number  as  absolute position.  You can specify to pad 
+#          relative to the last absolute pad position by adding a ’+’ qualifier or to pad 
+#          relative to the right margin by using ’-’. The padding truncates the string if 
+#          the specified position lies before the current position. 
+# 
+#          Add the ’L’ qualifier to change this.
+# 
+#   <      same as ’%=’ but just do truncation, do not fill with spaces
+# 
+#   >      mark the current text position for the next truncation. When screen needs to 
+#          do truncation, it tries to do it in a way that the marked position gets moved 
+#          to the specified  percentage of the output area. (The area starts from the last 
+#          absolute pad position and ends with the position specified by the truncation 
+#          operator.)
+#
+#          The ’L’ qualifier tells screen to mark the truncated parts with ’...’.
+# 
+#   {      attribute/color modifier string terminated by the next "}"
+#
+# An attribute/color modifier is is used to change the attributes or the color settings. 
+# Its format is "[attribute modifier] [color description]". The attribute  modifier must 
+# be prefixed by a change type indicator if it can be confused with a color desciption. 
+# The following change types are known:
+# 
+#   +      add the specified set to the current attributes
+#   -      remove the set from the current attributes
+#   =      change the current attributes to the specified set
+# 
+# The attribute set can either be specified as a hexadecimal number or a combination of 
+# the following letters:
+# 
+#   u      underline
+#   b      bold
+# 
+# Colors are coded either as a hexadecimal number or two letters specifying the desired 
+# background and foreground color (in that order). The following colors are known:
+# 
+#   k      black
+#   r      red
+#   g      green
+#   y      yellow
+#   b      blue
+#   m      magenta
+#   c      cyan
+#   w      white
+#   d      default color
+#   .      leave color unchanged
+# 
+# The capitalized versions of the letter specify bright colors.
+
+backtick 1 0 10000 /bin/dnsdomainname
+caption always "%-Lw%{= BW}%50>%n %t%{gk}%+Lw%< %= (top:%l - %H.%1`) %= %D %d %M %c %s"
+#hardstatus on
+#hardstatus alwayslastline "%{wk} %-w%{b}%f%n %t%{-}%+w %=%{R.}[%H %1`] %D %d/%m %c %s"
