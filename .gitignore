@@ -1,3 +1,5 @@
 backup
 cache
 *.swp
+link/.vim/swap
+link/.vim/undo

@@ -39,6 +39,7 @@ set incsearch
 set directory=~/.vim/swap/
 set backupdir=~/.vim/backup/
 set undodir=~/.vim/undo/
+set undofile
 
 " tabs
 set noexpandtab
@@ -162,7 +163,7 @@ noremap <silent><F8> :set relativenumber!<CR>
 noremap <silent> <F9> <C-t>
 noremap <silent> <F10> <C-]>
 " goto here
-map <silent> <F12  :tabedit $MYVIMRC<CR>
+map <silent> <F12> :tabedit $MYVIMRC<CR>
 map <silent> <S-F12> :tabedit $VIMRUNTIME<CR>
 
 " windows
