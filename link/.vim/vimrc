@@ -51,6 +51,9 @@ set tabstop=4
 " don't truncate words
 set linebreak
 
+"jump between start and end HTML tags
+runtime! macros/matchit.vim
+
 " statusline
 
 " always display
