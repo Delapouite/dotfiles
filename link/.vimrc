@@ -38,10 +38,7 @@ map <silent> <F2> <plug>NERDTreeTabsToggle<CR>
 map <silent> <F3> :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*" . expand("%:e") <Bar> cw<CR>
 map <silent> <F4> :call JsBeautify()<CR>
 
-command! PsqlBddUT execute "!psql -U postgres -h localhost  -p6123 -f %:p  ut"
-command! PsqlStatUT execute "!psql -U postgres -h localhost  -p7123 -f %:p  ut"
-command! PsqlBddPreprod execute "!psql -U oct2 -h localhost  -p7894 -f %:p  comtrack"
-command! PsqlUTPreprod execute "!psql -U postgres -h localhost  -p6567 -f %:p  ut"
+
 " gitgutter
 highlight clear SignColumn "remove white background
 
