@@ -31,13 +31,13 @@ alias ll='ls -alF'
 alias lsd='ll --group-directories-first'
 
 # cd
+
 function mkcd () {
     mkdir "$1" && cd "$1"
 }
 function cdls () {
     cd "$1" && ls
 }
-
 
 # tar
 
@@ -46,6 +46,7 @@ alias extar='tar -xvzf'
 
 alias adios='systemctl poweroff'
 alias cal='cal --monday'
+alias git='hub'
 alias open='xdg-open'
 alias zik='ncmpcpp'
 
@@ -56,4 +57,8 @@ function server() {
     local port="${1:-8000}"
     xdg-open "http://localhost:${port}/" &
     python -m http.server "$port"
+}
+
+function kill-port() {
+    lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 }
