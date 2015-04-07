@@ -2,11 +2,24 @@
 	env: {
 		browser: true
 	},
+	ecmaFeatures: {
+		arrowFunctions: true,
+		blockBindings: true,
+		defaultParams: true,
+		jsx: true,
+		objectLiteralShorthandMethods: true,
+		objectLiteralShorthandProperties: true
+	},
 	rules: {
 		'eqeqeq': [2, 'smart'],
 		'no-console': 0,
-		'no-global-strict': 0,
-		'quotes': [1, 'simple'],
-		'space-after-keywords': [1, 'always']
+		'no-else-return': 1,
+		'no-extra-parens': 1,
+		'no-use-before-define': [1, 'nofunc'],
+		'no-throw-literal': 1,
+		'quotes': [1, 'double', 'avoid-escape'],
+		'space-after-keywords': [1, 'always'],
+		'space-before-function-parens': [1, 'always'],
+		'strict': [1, 'global']
 	}
 }
