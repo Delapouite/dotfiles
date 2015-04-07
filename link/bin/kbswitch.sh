@@ -1,3 +1,4 @@
+echo $(date) > ~/yo.tmp
 # us, fr, us_qwerty-fr, fr bepo
 if [[ "$1" == "bepo" ]]; then
 	setxkbmap fr bepo
@@ -19,7 +20,6 @@ xmodmap -e "add Control = Control_L"
 
 # switch xmonad bindings with
 if [[ `pgrep "xmonad"` ]]; then
-	echo "switching xmonad"
 	rm ~/.xmonad/xmonad.hs
 	if [[ "$1" == 'bepo' ]]; then
 		ln -s ~/.xmonad/xmonad.bepo.hs ~/.xmonad/xmonad.hs

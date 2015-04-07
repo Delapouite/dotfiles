@@ -63,6 +63,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_F5    ), spawn "xbacklight -10")
     , ((modm,               xK_F6    ), spawn "xbacklight +10")
 
+    -- Keyboard (zsh "bepo" alias non available)
+    , ((modm,               xK_F12   ), spawn "kbswitch.sh bepo")
+
     -- Launch applications
     , ((modm,               xK_p     ), spawn "dmenu_run")
     , ((modm .|. shiftMask, xK_d     ), spawn "deadbeef")
@@ -71,7 +74,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Bottom row, xmonad related
 
-    , ((modm,               xK_w     ),  goToSelected $ myGSConfig myColorizer)
+    , ((modm,               xK_w     ), goToSelected $ myGSConfig myColorizer)
 
     -- Resize viewed windows to the correct size
     , ((modm,               xK_x     ), refresh)

@@ -64,6 +64,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_F5    ), spawn "xbacklight -10")
     , ((modm,               xK_F6    ), spawn "xbacklight +10")
 
+    -- Keyboard (zsh "fr" alias non available)
+    , ((modm,               xK_F12   ), spawn "kbswitch.sh fr")
+
     -- Launch applications
     , ((modm,               xK_p     ), spawn "dmenu_run")
     , ((0,                  xF86XK_Calculator), spawn "dmenu_run")
@@ -75,7 +78,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Bottom row, xmonad related
 
-    , ((modm,               xK_agrave),  goToSelected $ myGSConfig myColorizer)
+    , ((modm,               xK_agrave), goToSelected $ myGSConfig myColorizer)
 
     -- Resize viewed windows to the correct size
     , ((modm,               xK_y     ), refresh)
