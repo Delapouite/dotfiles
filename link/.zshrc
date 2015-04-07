@@ -14,3 +14,4 @@ PROMPT='%{$fg_bold[red]%}%T %{$fg_no_bold[cyan]%}%j %{$fg[red]%}%! %{$fg[green]%
 . ~/.paths
 # shortcut jump
 . ~/bin/z/z.sh
+. ~/bin/humanism.sh/humanism.sh c
