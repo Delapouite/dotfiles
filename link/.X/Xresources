@@ -1,6 +1,23 @@
 ! to reload : xrdb ~/.X/Xresources or let vim autocmd do it
+
+! xterm
 xterm*faceName: DejaVu Sans Mono Book
+! available in VT Fonts menu (CTRL + Right Click)
+! default
 xterm*faceSize: 10
+! unreadable
+xterm*faceSize1: 6
+! tiny
+xterm*faceSize2: 8
+! small
+xterm*faceSize3: 12
+! medium
+xterm*faceSize4: 14
+! large
+xterm*faceSize5: 16
+! huge
+xterm*faceSize6: 18
 xterm*selectToClipboard: true
+
 
 #include "dark"
