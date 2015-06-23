@@ -48,6 +48,7 @@ alias adios='systemctl poweroff'
 alias cal='cal --monday'
 alias git='hub'
 alias open='xdg-open'
+alias vimjs='vim -c "set ft=javascript"'
 alias zik='ncmpcpp'
 
 # network
