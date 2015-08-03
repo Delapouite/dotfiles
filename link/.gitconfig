@@ -16,3 +16,5 @@
 	showUntrackedFiles = all
 [diff]
 	wordRegex = .
+[color]
+	ui = auto
