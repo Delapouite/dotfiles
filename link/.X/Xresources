@@ -2,6 +2,9 @@
 
 ! xterm
 xterm*faceName: DejaVu Sans Mono Book
+! xterm*faceName: Anonymice Powerline Plus Nerd File Types
+! xterm*faceName: Literation Mono Powerline Plus Nerd File Types
+! xterm*faceName: Droid Sans Mono for Powerline Plus Nerd File Types Mono
 ! available in VT Fonts menu (CTRL + Right Click)
 ! default
 xterm*faceSize: 10
@@ -19,5 +22,8 @@ xterm*faceSize5: 16
 xterm*faceSize6: 18
 xterm*selectToClipboard: true
 
+xterm*cursorBlink: on
+xterm*cursorOnTime: 400
+xterm*cursorOffTime: 250
 
 #include "dark"
