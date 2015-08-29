@@ -25,5 +25,6 @@ xterm*selectToClipboard: true
 xterm*cursorBlink: on
 xterm*cursorOnTime: 400
 xterm*cursorOffTime: 250
+xterm*saveLines: 42042
 
 #include "dark"
