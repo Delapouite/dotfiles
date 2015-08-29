@@ -51,6 +51,7 @@ alias git='hub'
 alias open='xdg-open'
 alias vimjs='vim -c "set ft=javascript"'
 alias zik='ncmpcpp'
+alias n='npm run'
 
 # network
 
