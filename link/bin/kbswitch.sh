@@ -1,10 +1,14 @@
-echo $(date) > ~/yo.tmp
-# us, fr, us_qwerty-fr, fr bepo
-if [[ "$1" == "bepo" ]]; then
-	setxkbmap fr bepo
-else
-	setxkbmap $1
-fi
+# us, fr, us_qwerty-fr, fr bepo, lafayette
+case "$1" in
+	"bepo") setxkbmap fr bepo
+	;;
+
+	"lafayette") xkbcomp -w0 ~/bin/lafayette.xkb $DISPLAY
+	;;
+
+	*) setxkbmap $1
+	;;
+esac
 
 # using the above command unfortunately reset custom xmodmap bindings
 # hence the need to set them again
