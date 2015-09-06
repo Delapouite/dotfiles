@@ -30,6 +30,7 @@ alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
 alias lsd='ll --group-directories-first'
+alias lr='ranger'
 
 # cd
 
@@ -52,6 +53,14 @@ alias open='xdg-open'
 alias vimjs='vim -c "set ft=javascript"'
 alias zik='ncmpcpp'
 alias n='npm run'
+
+function v() {
+  if [ -z "$1" ]; then
+      vim .
+  else
+      vim "$1"
+  fi
+}
 
 # network
 
