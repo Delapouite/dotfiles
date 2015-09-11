@@ -48,11 +48,15 @@ alias extar='tar -xvzf'
 
 alias adios='systemctl poweroff'
 alias cal='cal --monday'
-alias git='hub'
 alias open='xdg-open'
 alias vimjs='vim -c "set ft=javascript"'
 alias zik='ncmpcpp'
 alias n='npm run'
+
+alias git='hub'
+alias gadd='git add .'
+alias gpull='git pull'
+alias gpush='git push'
 
 function v() {
   if [ -z "$1" ]; then
