@@ -1,3 +1,5 @@
+" set options - NO spaces around =
+
 " viM
 set nocompatible
 
@@ -8,6 +10,7 @@ set mouse=a
 " colors
 set t_Co=256
 set background=dark
+hi Cursor ctermfg=14 ctermbg=white
 syntax on
 
 " display invisible chars
@@ -15,10 +18,9 @@ set list
 set listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:▶,precedes:◀
 " replace with fancy chars if declared (see after/syntax/javascript.vim)
 set conceallevel=2
+set lazyredraw
 
 " crosshair on focus
-set cursorline
-set cursorcolumn
 augroup BgHighlight
 	autocmd WinEnter * set cursorline cursorcolumn
 	autocmd WinLeave * set nocursorline nocursorcolumn
@@ -41,23 +43,25 @@ set backupdir=~/.vim/backup/
 set undodir=~/.vim/undo/
 set undofile
 
-" tabs
+" tabs, default: T4 @see mappings.vim
 set noexpandtab
 set autoindent
 set colorcolumn=80,120
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+
 " don't truncate words
 set linebreak
 
-"jump between start and end HTML tags
+" jump between start and end HTML tags
 runtime! macros/matchit.vim
 
 " statusline
 
 " always display
 set laststatus=2
+
 set statusline=%F\      "filename
 set statusline+=[
 set statusline+=%{strlen(&fenc)?&fenc:'none'}, "file encoding
@@ -73,155 +77,26 @@ set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
-let g:airline_theme='base16'
-let g:airline_left_sep='▶'
-let g:airline_right_sep='◀'
-let g:airline_section_y='%{strlen(&fenc)?&fenc:"none"},%{&ff} %{getfsize(expand("%%:p"))}b'
-let g:airline_section_z='%3c,%3l/%L %P'
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#buffer_nr_show=1
+" used by gf to follow ES6 import - Ctrl-o to come back
+set suffixesadd=.js,.jsx
 
-" vundle
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+" Ctrl-p will look in dictionary if set spell is activated
+set complete=.,w,b,u,t,i,kspell
 
-" bundles
+set timeoutlen=1000 ttimeoutlen=0
 
-" themes
-Bundle 'altercation/vim-colors-solarized'
-" use this solarized theme because of black on black bug
-Bundle 'chriskempson/base16-vim'
-" ui
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'bling/vim-airline'
-" cvs
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
-" expand
-" cs"' ds"
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-commentary'
-Bundle 'mattn/emmet-vim'
-" search
-Bundle 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]node_modules|(\.(git|hg|svn))$'
-  \ }
+" sources
 
-Bundle 'mileszs/ack.vim'
-" code style
-Bundle 'scrooloose/syntastic'
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['eslint']
-
-Bundle 'shime/vim-livedown'
-Bundle 'maksimr/vim-jsbeautify'
-Bundle 'einars/js-beautify'
-Bundle 'editorconfig/editorconfig-vim'
-" show them in red and offers :FixWhitespace
-Bundle 'bronson/vim-trailing-whitespace'
-" filetypes
-Bundle 'othree/html5.vim'
-" temp fork of othree for experimentations
-" Bundle 'Delapouite/yajs.vim'
-Bundle 'marijnh/tern_for_vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'gkz/vim-ls'
-Bundle 'leafgarland/typescript-vim'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'wavded/vim-stylus'
-Bundle 'hail2u/vim-css3-syntax'
-
-" use the gx command to open URL
-" https://github.com/gmarik/vundle/issues/176#issuecomment-12996269
-filetype off
-filetype plugin indent on
-
-colorscheme base16-solarized
-
-" markdown instead of modula
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'html', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
-
-" shortcuts
-set timeoutlen=200
-map <Space> <Leader>
-
-map <silent> <F1> :NERDTreeFind<CR>
-map <silent> <F2> :NERDTreeTabsToggle<CR>
-" find current word
-map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cword>")<CR>
-map <silent> <F4> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cWORD>")<CR>
-
-map <silent> <F5> :call JsBeautify()<CR>
-
-" emmet
-imap <silent> <F6> <C-y>,
-" external
-map <silent> <F7> :!gulp<CR>
-
-noremap <silent><F8> :set relativenumber!<CR>
-
-" nav through help tags
-noremap <silent> <F9> <C-t>
-noremap <silent> <F10> <C-]>
-" goto here
-map <silent> <F12> :tabedit $MYVIMRC<CR>
-map <silent> <S-F12> :tabedit $VIMRUNTIME<CR>
-
-" windows
-" toggle between windows
-noremap <silent> <A-Tab> <C-w><C-w>
-" move
-noremap <Leader>h :wincmd h<CR>
-noremap <Leader>k :wincmd k<CR>
-noremap <Leader>l :wincmd l<CR>
-noremap <Leader>j :wincmd j<CR>
-" rotate
-noremap <Leader>H :wincmd H<CR>
-noremap <Leader>K :wincmd K<CR>
-noremap <Leader>L :wincmd L<CR>
-noremap <Leader>J :wincmd J<CR>
-" divide
-noremap <Leader>s :wincmd s<CR>
-noremap <Leader>v :wincmd v<CR>
-" next Quickfix
-noremap <Leader>n :cn<CR>
-
-" hardcore
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
-
-" indents
-nmap <S-Tab> <<
-nmap <Tab> >>
-vmap <S-Tab> <gv
-vmap <Tab> >gv
-
-" auto apply
-augroup configurationFiles
-	autocmd! BufWritePost vimrc source $MYVIMRC
-	autocmd! BufWritePost .vimrc source $MYVIMRC
-	autocmd! BufWritePost _vimrc source $MYVIMRC
-	autocmd! BufWritePost Xresources !xrdb -load ~/.X/Xresources
-augroup END
-
-" files created by npm init follow this convention
-autocmd BufReadPost package.json set expandtab shiftwidth=2 softtabstop=2 tabstop=2
-
-" functions
+source ~/.vim/plugins.vim
+source ~/.vim/mappings.vim
+source ~/.vim/autocmds.vim
 source ~/.vim/functions.vim
 
+" lang specific mappings
 if !empty(system("setxkbmap -print|grep bepo"))
 	source ~/.vim/vimrc.bepo
+" elseif !empty(system("setxkbmap -print|grep lafayette"))
+" 	source ~/.vim/vimrc.lafayette
 else
 	source ~/.vim/vimrc.azerty
 endif
