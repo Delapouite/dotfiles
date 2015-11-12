@@ -53,6 +53,7 @@ alias vimjs='vim -c "set ft=javascript"'
 alias zik='ncmpcpp'
 alias n='npm run'
 alias npmreset='rm -rf node_modules'
+alias rm='rm -i'
 
 # alias git='hub'
 alias gadd='git add .'
