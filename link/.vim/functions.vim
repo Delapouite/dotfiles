@@ -16,3 +16,19 @@ function! WordFrequency() range
 endfunction
 
 command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
+
+" deal with NPM
+
+function! NPMGetPackage ()
+	let pkg = expand('<cWORD>')
+	" remove surrounding quotes and potentian colon
+	return matchstr(pkg, '\([-a-zA-Z]\+\)')
+endfun
+
+function! NPMHome ()
+	silent exec '!npm home ' . NPMGetPackage()
+endfun
+
+function! NPMRegistry ()
+	silent exec '!xdg-open https://www.npmjs.com/package/' . NPMGetPackage()
+endfun

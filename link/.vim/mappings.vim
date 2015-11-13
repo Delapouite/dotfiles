@@ -51,8 +51,8 @@ map <silent> <Leader><F1> :CtrlP<CR>
 map <silent> <Leader><F2> :CtrlPBuffer<CR>
 
 " free remaining letters for leader
-" bcfgilmrtuxy
-" BCDEFGIMOPQRTUWXYZ
+" bcfgilmrtuy
+" BCDEFGIMOPQRTUXYZ
 
 " yank all / paste all
 map <Leader>a ggVG"ay
@@ -63,6 +63,9 @@ map <Leader>Y "0P
 map <Leader>w :w<CR>
 map <Leader>q :q<CR>
 map <Leader>z :wq<CR>
+
+map <Leader>x :call NPMHome()<CR>
+map <Leader>X :call NPMRegistry()<CR>
 
 " space and tabs - T4 by default
 map <Leader>s2 :set expandtab ts=2 sts=2 sw=2<CR>
@@ -103,8 +106,8 @@ noremap <Leader>V :Vexplore<CR>
 noremap <Leader>o :cn<CR>
 
 " surround
-noremap <Leader>' ysiw'
-noremap <Leader>" ysiw"
+map <Leader>' ysiw'
+map <Leader>" ysiw"
 
 " hardcore (see HardMode plugin above)
 noremap <Up> <NOP>
@@ -119,9 +122,7 @@ inoremap <Right> <NOP>
 nnoremap <Leader>r <Esc>:call ToggleHardMode()<CR>
 
 " easymotion
-nmap s <Plug>(easymotion-s)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map s <Plug>(easymotion-prefix)
 
 " indents
 nmap <S-Tab> <<
