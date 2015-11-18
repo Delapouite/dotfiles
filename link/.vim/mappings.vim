@@ -29,8 +29,8 @@ map <silent> <F5> :call JsBeautify()<CR>
 " emmet
 map <silent> <F6> <C-y>,
 imap <silent> <F6> <C-y>,
-map <silent> <F7> :!gulp<CR>
 
+let g:AutoPairsShortcutToggle = '<F7>'
 map <silent> <F8> :set relativenumber!<CR>
 
 " nav through help tags

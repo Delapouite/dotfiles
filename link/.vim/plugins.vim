@@ -6,19 +6,42 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 
 " text objects
+" built-ins: wW s p <> t
 Plug 'kana/vim-textobj-user'
-" aj/ij for the closest region between any of () [] or {}
+
+" built-ins: [] ()b {}B
+" j — aj/ij for the closest region between any of () [] or {}
 Plug 'Julian/vim-textobj-brace'
-" ac/ic for a comm
+
+" c — ac/ic for a comm
 Plug 'glts/vim-textobj-comment'
-" ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
+
+" i — ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
 Plug 'kana/vim-textobj-indent'
-" aq/iq for the closest pairs of quotes of any type
+
+" built-ins: " ' `
+" q — aq/iq for the closest pairs of quotes of any type
 Plug 'beloglazov/vim-textobj-quotes'
-" a_/i_ for a region between _s such as bar in foo_bar_baz
+
+" _ — a_/i_ for a region between _s such as bar in foo_bar_baz
 Plug 'lucapette/vim-textobj-underscore'
-" aS/iS for a region filled with various space characters
+
+" S _ aS/iS for a region filled with various space characters
 Plug 'saihoooooooo/vim-textobj-space'
+
+" f — af/if for functions
+Plug 'kana/vim-textobj-function'
+Plug 'thinca/vim-textobj-function-javascript'
+
+" e — ae/ie for entire buffers
+Plug 'kana/vim-textobj-entire'
+
+" v — av/ev for variable segments (camelCase)
+Plug 'Julian/vim-textobj-variable-segment'
+
+" , — a,/i, for function params
+Plug 'sgur/vim-textobj-parameter'
+
 
 Plug 'jiangmiao/auto-pairs'
 
@@ -70,6 +93,8 @@ nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 
+Plug 'blueyed/vim-diminactive'
+
 Plug 'tomtom/quickfixsigns_vim'
 let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorMoved', 'InsertLeave', 'InsertChange']
 
@@ -82,10 +107,10 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'honza/vim-snippets'
 " Plug 'matthewsimo/angular-vim-snippets'
 
-" cs"' ds"
+" cs"' ds" ysiw(
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
-let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_do_mapping = 1
 let g:EasyMotion_use_upper = 1
 
 " gcc
@@ -103,13 +128,19 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-repeat'
 
 " code style
-Plug 'scrooloose/syntastic'
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "✗"
+if has('nvim')
+	Plug 'benekastah/neomake'
+	let g:neomake_javascript_enabled_makers = ['eslint']
+	autocmd! BufWritePost * Neomake
+else
+	Plug 'scrooloose/syntastic'
+	let g:syntastic_aggregate_errors = 1
+	let g:syntastic_auto_loc_list = 0
+	let g:syntastic_check_on_open = 1
+	let g:syntastic_javascript_checkers = ['eslint']
+	let g:syntastic_error_symbol = "✗"
+	let g:syntastic_warning_symbol = "✗"
+endif
 
 Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
@@ -136,7 +167,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 " altscript
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
+" Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'gkz/vim-ls'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
