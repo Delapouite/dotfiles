@@ -1,13 +1,20 @@
 ! to reload : xrdb ~/.X/Xresources or let vim autocmd do it
 
 ! xterm
-xterm*faceName: DejaVu Sans Mono Book
+! Better than exporting TERM from zshrch for terminfo
+xterm*termName: xterm-256color
+! xterm*faceName: DejaVu Sans Mono Book
+xterm*faceName: DejaVu Sans Mono for Powerline
+! xterm*faceName: DejaVu Sans Mono Bold for Powerline
 ! xterm*faceName: Anonymice Powerline Plus Nerd File Types
 ! xterm*faceName: Literation Mono Powerline Plus Nerd File Types
 ! xterm*faceName: Droid Sans Mono for Powerline Plus Nerd File Types Mono
+! xterm*faceName: Monofur for Powerline
+! xterm*faceName: ProggyCleanTT Plus Nerd File Types Mono
+! xterm*faceName: Sauce Code Powerline Plus Nerd File Types Mono
 ! available in VT Fonts menu (CTRL + Right Click)
 ! default
-xterm*faceSize: 10
+xterm*faceSize: 12
 ! unreadable
 xterm*faceSize1: 6
 ! tiny
@@ -20,11 +27,16 @@ xterm*faceSize4: 14
 xterm*faceSize5: 16
 ! huge
 xterm*faceSize6: 18
+
 xterm*selectToClipboard: true
 
 xterm*cursorBlink: on
 xterm*cursorOnTime: 400
 xterm*cursorOffTime: 250
 xterm*saveLines: 42042
+! alt key no longer prints diacritcs
+xterm*metaSendsEscape: true
+
+Xcursor.size: 42
 
 #include "dark"
