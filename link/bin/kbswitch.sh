@@ -16,9 +16,10 @@ esac
 # xmodmap is not directly related to X KeyBoard extension (XKB),
 # as it uses different (pre-XKB) ideas on how keycodes are processed within X.
 
-# print screen as another super for xmonad
+# print-screen as Compose key (aka Multi Language Key)
+# xmodmap -e "keysym Print = Multi_key"
 # on TMX30 shuffle (102 Muhenkan) and desktop (100 Henkan) keys in 106 mode
-xmodmap -e "add mod4 = Super_L Print Henkan Muhenkan"
+xmodmap -e "add mod4 = Super_L Henkan Muhenkan"
 # add tap and long press for Caps Lock
 xmodmap -e "remove Lock = Caps_Lock"
 xmodmap -e "keysym Caps_Lock = Control_L"
