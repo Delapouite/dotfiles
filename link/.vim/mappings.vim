@@ -51,18 +51,12 @@ map <silent> <Leader><F1> :CtrlP<CR>
 map <silent> <Leader><F2> :CtrlPBuffer<CR>
 
 " free remaining letters for leader
-" bcfgilmrtuy
-" BCDEFGIMOPQRTUXYZ
+" abcfgilmqrtuwyz
+" ABCDEFGIMOPQRTUXYZ
 
 " yank all / paste all
-map <Leader>a ggVG"ay
-map <Leader>A "aP
 map <Leader>y "0p
 map <Leader>Y "0P
-
-map <Leader>w :w<CR>
-map <Leader>q :q<CR>
-map <Leader>z :wq<CR>
 
 map <Leader>x :call NPMHome()<CR>
 map <Leader>X :call NPMRegistry()<CR>
@@ -82,12 +76,10 @@ map <Leader>p :bprevious<CR>
 map <Leader>d :bdelete<CR>
 
 " windows
-" toggle between windows
-noremap <silent> <A-Tab> <C-w><C-w>
 " move
 noremap <Leader>h :wincmd h<CR>
-" noremap <Leader>k :wincmd k<CR>
-" noremap <Leader>l :wincmd l<CR>
+noremap <Leader>k :wincmd k<CR>
+noremap <Leader>l :wincmd l<CR>
 noremap <Leader>j :wincmd j<CR>
 " rotate
 noremap <Leader>H :wincmd H<CR>
@@ -118,8 +110,6 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
-
-nnoremap <Leader>r <Esc>:call ToggleHardMode()<CR>
 
 " easymotion
 map s <Plug>(easymotion-prefix)
