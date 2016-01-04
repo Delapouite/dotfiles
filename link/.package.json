@@ -16,6 +16,7 @@ jshint
 json5
 LiveScript
 lodash-cli
+npm-check
 readmetree
 stylus
 tin
