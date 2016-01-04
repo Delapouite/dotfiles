@@ -10,8 +10,11 @@
 	diffw = diff --word-diff
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status
+	tidy = rebase -i @{upstream}..
 [push]
 	default = simple
+[pull]
+	rebase = preserve
 [status]
 	showUntrackedFiles = all
 [diff]
