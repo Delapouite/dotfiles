@@ -4,12 +4,16 @@ alias startx='ssh-agent startx'
 
 # keyboards
 
+# layouts
 alias fr='kbswitch.sh fr'
 alias us='kbswitch.sh us'
 alias qwfr='kbswitch.sh us_qwerty-fr'
 alias bepo='kbswitch.sh bepo'
 alias lafayette='kbswitch.sh lafayette'
-alias notouchpad='xinput --set-prop 14 "Device Enabled" 0'
+
+# TODO find a way to get the right id every time
+alias touchpad='xinput disable 12'
+alias notouchpad='xinput disable 12'
 
 # colors
 
