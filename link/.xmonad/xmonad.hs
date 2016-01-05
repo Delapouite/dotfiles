@@ -1,1 +1,1 @@
-/home/delapouite/.xmonad/xmonad.azerty.hs
+/home/delapouite/.xmonad/xmonad.lafayette.hs
