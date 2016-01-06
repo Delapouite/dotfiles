@@ -1,5 +1,7 @@
 EDITOR=vim
+VISUAL=vim
 export NODE_ENV=development
+export TERM='xterm-256color'
 
 autoload -U colors compinit promptinit
 colors
@@ -28,3 +30,4 @@ PROMPT='%{$fg_bold[red]%}%T %{$fg_no_bold[cyan]%}%j %{$fg[red]%}%! %{$fg[green]%
 # shortcut jump
 . ~/bin/z/z.sh
 . ~/bin/humanism.sh/humanism.sh c
+fpath=($HOME/.z/completions $fpath)
