@@ -3,7 +3,7 @@ case "$1" in
 	"bepo") setxkbmap fr bepo
 	;;
 
-	"lafayette") xkbcomp -w0 ~/bin/lafayette.xkb $DISPLAY
+	"lafayette") xkbcomp -w0 -I$HOME/.xkb ~/.xkb/keymap/delafayette $DISPLAY
 	;;
 
 	*) setxkbmap $1
