@@ -31,3 +31,5 @@ PROMPT='%{$fg_bold[red]%}%T %{$fg_no_bold[cyan]%}%j %{$fg[red]%}%! %{$fg[green]%
 . ~/bin/z/z.sh
 . ~/bin/humanism.sh/humanism.sh c
 fpath=($HOME/.z/completions $fpath)
+
+setopt auto_cd
