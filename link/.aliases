@@ -1,5 +1,6 @@
 # X.org
 
+alias sx='startx'
 alias startx='ssh-agent startx'
 
 # keyboards
@@ -21,8 +22,6 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
 alias bgdark='xrdb -merge ~/.X/dark'
@@ -39,10 +38,10 @@ alias lr='ranger'
 # cd
 
 function mkcd () {
-    mkdir "$1" && cd "$1"
+  mkdir "$1" && cd "$1"
 }
 function cdls () {
-    cd "$1" && ls
+  cd "$1" && ls
 }
 
 # tar
@@ -50,14 +49,21 @@ function cdls () {
 alias mktar='tar -cvzf'
 alias extar='tar -xvzf'
 
+# misc
+
 alias adios='systemctl poweroff'
 alias cal='cal --monday'
 alias open='xdg-open'
-alias vimjs='vim -c "set ft=javascript"'
+alias rm='rm -i'
+alias wttr='curl -4 http://wttr.in/Lyon'
 alias zik='ncmpcpp'
+
+# npm
 alias n='npm run'
 alias npmreset='rm -rf node_modules'
-alias rm='rm -i'
+alias nst='npm-scripts-tree'
+
+# git
 
 # alias git='hub'
 alias gadd='git add .'
@@ -66,6 +72,9 @@ alias gpush='git push'
 alias gst='git st'
 alias gco='git co'
 
+# vim, nvim
+
+alias vimjs='vim -c "set ft=javascript"'
 function v() {
   if [ -z "$1" ]; then
       vim .
@@ -74,15 +83,23 @@ function v() {
   fi
 }
 
+function nv() {
+  if [ -z "$1" ]; then
+      nvim .
+  else
+      nvim "$1"
+  fi
+}
+
 # network
 
 alias lservers='netstat -lnpt'
 function server() {
-    local port="${1:-8000}"
-    xdg-open "http://localhost:${port}/" &
-    python -m http.server "$port"
+  local port="${1:-8000}"
+  xdg-open "http://localhost:${port}/" &
+  python -m http.server "$port"
 }
 
 function kill-port() {
-    lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
+  lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 }
