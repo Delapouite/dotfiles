@@ -19,13 +19,13 @@ esac
 # print-screen as Compose key (aka Multi Language Key)
 # xmodmap -e "keysym Print = Multi_key"
 # on TMX30 shuffle (102 Muhenkan) and desktop (100 Henkan) keys in 106 mode
-xmodmap -e "add mod4 = Super_L Henkan Muhenkan"
+# xmodmap -e "add mod4 = Super_L Henkan Muhenkan"
 # add tap and long press for Caps Lock
-xmodmap -e "remove Lock = Caps_Lock"
-xmodmap -e "keysym Caps_Lock = Control_L"
-xmodmap -e "add Control = Control_L"
+# xmodmap -e "remove Lock = Caps_Lock"
+# xmodmap -e "keysym Caps_Lock = Control_L"
+# xmodmap -e "add Control = Control_L"
 # default to -e "Control_L = Escape"
-~/bin/xcape
+# ~/bin/xcape
 
 # switch xmonad bindings with
 if [[ `pgrep "xmonad"` ]]; then
