@@ -14,11 +14,10 @@ import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Spiral
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run (spawnPipe)
 import Data.Monoid
 import System.IO
 import System.Exit
-
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
@@ -34,8 +33,7 @@ import qualified Data.Map as M
 -- workspace name. The number of workspaces is determined by the length
 -- of this list.
 
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
-myWorkspaces = map show [0..10]
+myWorkspaces = ["z", "vi", "fx", "cr"] ++ map show [4..10]
 
 -- GridSelect color scheme
 myColorizer = colorRangeFromClassName
@@ -102,8 +100,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Resize viewed windows to the correct size
     , ((modm .|. shiftMask, xK_x    ), refresh)
 
-    -- Toggle border
-    , ((modm,               xK_b    ), withFocused toggleBorder)
+    -- Toggle noBorder
+    , ((modm,               xK_n    ), withFocused toggleBorder)
 
     -- Rotate through the available layouts
     , ((modm,               xK_space), sendMessage NextLayout)
@@ -172,13 +170,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ]
     ++
 
-
     -- Numbers row
 
     -- mod-[` 1 .. 0], Switch to workspace N
-    -- mod-shift-[² & é .. ç à], Move client to workspace N
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf)
+    -- mod-shift-[~ ! .. )], Move client to workspace N
+    [((mask .|. modm, key), windows $ f i)
+        | (i, key) <- zip (XMonad.workspaces conf)
             [ xK_grave
             , xK_1
             , xK_2
@@ -191,17 +188,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
             , xK_9
             , xK_0
             ]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
-
 
     -- Upper row
 
     -- mod-{a,z,e}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{a,z,e}, Move client to screen 1, 2, or 3
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    [((mask .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+        -- following 2 lines are generator yielding tuples for the comprehension
+
+        -- [0..] is the 2nd arg because zip is lazy right
         | (key, sc) <- zip [xK_q, xK_w, xK_e] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+        , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 -- Mouse bindings: default actions bound to mouse events
@@ -285,12 +284,12 @@ allLayouts = smartBorders $ columnsLayout ||| rowsLayout
                         ||| curtainsLayout ||| dishesLayout
                         ||| Full
 
-myLayoutHook = onWorkspace  "0"         rowsFirst $
-               onWorkspace  "4"         columnsFirst $
-               onWorkspace  "8"         halvesFirst $
-               onWorkspace  "9"         tiersFirst $
-               onWorkspace  "10"        noBordersLayout $
-                                        allLayouts
+myLayoutHook = onWorkspace  "z"  rowsFirst $
+               onWorkspace  "4"  columnsFirst $
+               onWorkspace  "8"  halvesFirst $
+               onWorkspace  "9"  tiersFirst $
+               onWorkspace  "10" noBordersLayout $
+                                 allLayouts
 
 -- Window rules:
 
@@ -337,29 +336,42 @@ myLogHook = return ()
 
 myStartupHook = return ()
 
+-- Pretty Print for xmobar
+myPP = xmobarPP {
+  ppCurrent = xmobarColor "#D33682" "" . wrap "<" ">",
+  ppVisible = wrap "(" ")",
+  ppHidden = id,
+  ppHiddenNoWindows = const "",
+  ppTitle = xmobarColor "#FFFFFF" "",
+  ppLayout = xmobarColor "#6C71C4" "",
+  ppSep = " | "
+}
+-- Show/hide xmobar
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
 
-main = do
-  xmonad $ defaultConfig {
-    terminal           = "xterm",
-    focusFollowsMouse  = True,
-    borderWidth        = 2,
-    normalBorderColor  = "#000000",
-    focusedBorderColor = "#DC322F",
-    modMask            = mod4Mask,
-    workspaces         = myWorkspaces,
+myConfig = defaultConfig {
+  terminal           = "xterm",
+  focusFollowsMouse  = True,
+  borderWidth        = 2,
+  normalBorderColor  = "#000000",
+  focusedBorderColor = "#DC322F",
+  modMask            = mod4Mask,
+  workspaces         = myWorkspaces,
 
-  -- key bindings
-    keys               = myKeys,
-    mouseBindings      = myMouseBindings,
+-- key bindings
+  keys               = myKeys,
+  mouseBindings      = myMouseBindings,
 
-  -- hooks, layouts
-    layoutHook         = myLayoutHook,
-    manageHook         = myManageHook,
-    handleEventHook    = myEventHook,
-    logHook            = myLogHook,
-    startupHook        = myStartupHook
-  }
+-- hooks, layouts
+  layoutHook         = myLayoutHook,
+  manageHook         = myManageHook,
+  handleEventHook    = myEventHook,
+  logHook            = myLogHook,
+  startupHook        = myStartupHook
+}
+
+main = xmonad =<< statusBar "xmobar" myPP toggleStrutsKey myConfig
