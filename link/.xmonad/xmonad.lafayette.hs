@@ -88,6 +88,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_f    ), spawn "firefox")
     , ((modm .|. shiftMask, xK_g    ), spawn "chromium")
 
+    -- MPD controls
+    , ((modm,               xK_Left ), spawn "mpc prev")
+    , ((modm,               xK_Right), spawn "mpc next")
+    , ((modm,               xK_Up   ), spawn "mpc toggle")
+    , ((modm,               xK_Down ), spawn "mpc stop")
+
 
     -- Bottom keys - Window mgmt
 
@@ -157,16 +163,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Arrows
 
     -- Move to prev workspace
-    , ((modm,               xK_Left ), prevWS)
+    , ((modm .|. shiftMask, xK_Left ), prevWS)
 
     -- Move to next workspace
-    , ((modm,               xK_Right), nextWS)
+    , ((modm .|. shiftMask, xK_Right), nextWS)
 
     -- Increment the number of windows in the master area
-    , ((modm,               xK_Up   ), sendMessage $ IncMasterN 1)
+    , ((modm .|. shiftMask, xK_Up   ), sendMessage $ IncMasterN 1)
 
     -- Deincrement the number of windows in the master area
-    , ((modm,               xK_Down ), sendMessage $ IncMasterN (-1))
+    , ((modm .|. shiftMask, xK_Down ), sendMessage $ IncMasterN (-1))
     ]
     ++
 
