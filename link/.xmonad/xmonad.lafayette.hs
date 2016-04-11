@@ -7,6 +7,8 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.NoBorders
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.Column
 import XMonad.Layout.Dishes
 import XMonad.Layout.Grid
@@ -57,8 +59,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Launch a terminal
     [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
+    -- Launch a ranger
+    , ((modm .|. shiftMask, xK_Return   ), spawn "xterm -e \"ranger\"")
     -- Launch a terminal in cwd
     , ((modm,               xK_BackSpace), spawn "xterm -e \"cd `xcwd` && /bin/zsh\"")
+    -- Launch ranger in cwd
+    , ((modm .|. shiftMask, xK_BackSpace), spawn "xterm -e \"cd `xcwd` && ranger\"")
     -- Close focused window
     , ((modm,               xK_Escape   ), kill)
     -- Restart xmonad
@@ -316,7 +322,9 @@ myManageHook = composeAll
     , className =? "Chromium"       --> doShift "3"
     , className =? "Deadbeef"       --> doShift "9"
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+--  https://www.reddit.com/r/xmonad/comments/4cnjhi/fullscreen_video_in_firefox/
+    , isFullscreen --> doFullFloat ]
 
 -- Event handling
 
@@ -324,7 +332,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 
-myEventHook = mempty
+myEventHook = handleEventHook defaultConfig <+> fullscreenEventHook
 
 -- Status bars and logging
 
