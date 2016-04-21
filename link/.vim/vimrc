@@ -1,15 +1,22 @@
 " set options - NO spaces around =
 
-" viM
+" About neovim support :
+" - cnvim - some default options are Changed : https://github.com/neovim/neovim/issues/2676
+" - dnvim - Deleted options appear in red
+" - envim - this is now enabled by default, therefore Extraneous
+
+" viM | dnvim
 set nocompatible
 
 " better communication with OS
 set clipboard=unnamedplus
+" to resize split windows | envim
 set mouse=a
 
 " colors
+" in neovim make sure to use export TERM=xterm-256colors instead | dnvim
 set t_Co=256
-set background=dark
+set background=light
 hi Cursor ctermfg=14 ctermbg=white
 syntax on
 
@@ -21,21 +28,19 @@ set conceallevel=2
 set lazyredraw
 
 " crosshair on focus
-augroup BgHighlight
-	autocmd WinEnter * set cursorline cursorcolumn
-	autocmd WinLeave * set nocursorline nocursorcolumn
-augroup END
+set cursorline cursorcolumn
 " room to breath
 set scrolloff=5
 
 " dynamic line numbers
-set number
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
+set nonumber
 
-" search
+" search | envim
 set hlsearch
 set incsearch
+
+" better than 50 | envim
+set history=10000
 
 " dirs
 set directory=~/.vim/swap/
@@ -43,18 +48,19 @@ set backupdir=~/.vim/backup/
 set undodir=~/.vim/undo/
 set undofile
 
-" tabs, default: T4 @see mappings.vim
+" tabs, default: T2 @see mappings.vim
 set noexpandtab
+" envim
 set autoindent
 set colorcolumn=80,120
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 
 " don't truncate words
 set linebreak
 
-" jump between start and end HTML tags
+" jump between start and end HTML tags | envim
 runtime! macros/matchit.vim
 
 " statusline
@@ -86,7 +92,6 @@ set complete=.,w,b,u,t,i,kspell
 set timeoutlen=1000 ttimeoutlen=0
 
 " sources
-
 source ~/.vim/plugins.vim
 source ~/.vim/mappings.vim
 source ~/.vim/autocmds.vim

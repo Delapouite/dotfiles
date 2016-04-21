@@ -15,10 +15,12 @@ command! W w !sudo dd of=%
 " to the end of the line (like C, D)
 noremap Y y$"
 
-" F* keys
+nmap <silent> <BS> :nohlsearch<CR>
 
-map <silent> <F1> :NERDTreeFind<CR>
-map <silent> <F2> :NERDTreeToggle<CR>
+" no more shift on Lafayette
+noremap , :
+
+" F* keys
 
 " find current word
 map <silent> <F3> :execute "noautocmd Ack --ignore-dir=node_modules --ignore-dir=dist " . expand("<cword>")<CR>
@@ -31,13 +33,12 @@ map <silent> <F6> <C-y>,
 imap <silent> <F6> <C-y>,
 
 let g:AutoPairsShortcutToggle = '<F7>'
-map <silent> <F8> :set relativenumber!<CR>
 
 " nav through help tags
 noremap <silent> <F9> <C-t>
 noremap <silent> <F10> <C-]>
 
-" goto here
+" the V, M and P marks are also available to reach the vimrc sections
 map <silent> <F12> :tabedit $MYVIMRC<CR>
 map <silent> <S-F12> :tabedit $VIMRUNTIME<CR>
 
@@ -51,15 +52,21 @@ map <silent> <Leader><F1> :CtrlP<CR>
 map <silent> <Leader><F2> :CtrlPBuffer<CR>
 
 " free remaining letters for leader
-" abcfgilmqrtuwyz
-" ABCDEFGIMOPQRTUXYZ
+" abcfimquyz
+" ABCDFIMOQTUWYZ
 
-" yank all / paste all
-map <Leader>y "0p
-map <Leader>Y "0P
+" kakoune mode
+map <silent> <Leader>u :execute "!kak % +" . line('.')<CR><CR>
+
+" paste++
+map <Leader>p "0p
+map <Leader>P "0P
 
 map <Leader>x :call NPMHome()<CR>
 map <Leader>X :call NPMRegistry()<CR>
+
+map <Leader>r :set relativenumber!<CR>
+map <Leader>R :set number!<CR>
 
 " space and tabs - T4 by default
 map <Leader>s2 :set expandtab ts=2 sts=2 sw=2<CR>
@@ -71,16 +78,17 @@ map <Leader>t8 :set noexpandtab ts=8 sts=8 sw=8<CR>
 
 " buffers
 map <Leader>n :bnext<CR>
-map <Leader>N :bNext<CR>
-map <Leader>p :bprevious<CR>
-map <Leader>d :bdelete<CR>
+map <Leader>N :bprevious<CR>
+map <Leader>d :bp\|:bd #<CR>
 
 " windows
 " move
-noremap <Leader>h :wincmd h<CR>
-noremap <Leader>k :wincmd k<CR>
-noremap <Leader>l :wincmd l<CR>
-noremap <Leader>j :wincmd j<CR>
+" TODO: remove conflic with GitGutter causing <Leader>h to take 1sec
+noremap <silent> <Leader>w :wincmd w<CR>
+noremap <silent> <Leader>h :wincmd h<CR>
+noremap <silent> <Leader>k :wincmd k<CR>
+noremap <silent> <Leader>l :wincmd l<CR>
+noremap <silent> <Leader>j :wincmd j<CR>
 " rotate
 noremap <Leader>H :wincmd H<CR>
 noremap <Leader>K :wincmd K<CR>
@@ -97,11 +105,18 @@ noremap <Leader>V :Vexplore<CR>
 " next Quickfix
 noremap <Leader>o :cn<CR>
 
+noremap <silent> <Leader>g :NERDTreeFind<CR>
+noremap <silent> <Leader>G :NERDTreeToggle<CR>
+
 " surround
 map <Leader>' ysiw'
 map <Leader>" ysiw"
+map <Leader>( ysiw)
+map <Leader>[ ysiw]
+map <Leader>{ ysiw}
+map <Leader>< ysiw>
 
-" hardcore (see HardMode plugin above)
+" hardcore (see HardMode plugin)
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -110,6 +125,11 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
+" kakoune: use dl / dh instead, reserve x for the future
+noremap x <NOP>
+noremap X <NOP>
+" noremap h <NOP>
+" noremap l <NOP>
 
 " easymotion
 map s <Plug>(easymotion-prefix)
