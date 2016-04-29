@@ -83,7 +83,7 @@ map <Leader>d :bp\|:bd #<CR>
 
 " windows
 " move
-" TODO: remove conflic with GitGutter causing <Leader>h to take 1sec
+" TODO: remove conflict with GitGutter causing <Leader>h to take 1sec
 noremap <silent> <Leader>w :wincmd w<CR>
 noremap <silent> <Leader>h :wincmd h<CR>
 noremap <silent> <Leader>k :wincmd k<CR>

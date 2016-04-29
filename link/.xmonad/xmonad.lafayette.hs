@@ -5,21 +5,27 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.GridSelect
 import XMonad.Actions.NoBorders
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
+
 import XMonad.Layout.Column
 import XMonad.Layout.Dishes
 import XMonad.Layout.Grid
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spiral
+
 import XMonad.Util.Run (spawnPipe)
+
 import Data.Monoid
 import System.IO
 import System.Exit
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
@@ -239,18 +245,20 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 -- Note that each layout is separated by ||| which denotes layout choice.
 
+re name l = renamed [Replace name] l
+
 -- g key, f key
 gridFull = Grid ||| Full
 
 -- r key
-rowsLayout = Column 1
+rowsLayout = re "Rows" $ Column 1
 -- c key
-columnsLayout = Mirror rowsLayout
+columnsLayout = re "Cols" $ Mirror rowsLayout
 
 tiersLayouts = tiled ||| Mirror tiled
   where
     -- Default tiling algorithm partitions the screen into two panes
-    tiled   = Tall nmaster delta ratio
+    tiled   = re "Tall 3" $ Tall nmaster delta ratio
     -- Default number of windows in the master pane
     nmaster = 1
     -- Default proportion of screen occupied by master pane
@@ -260,22 +268,22 @@ tiersLayouts = tiled ||| Mirror tiled
 
 halvesLayouts = tiled ||| Mirror tiled
   where
-    tiled   = Tall nmaster delta ratio
+    tiled   = re "Tall 2" $ Tall nmaster delta ratio
     nmaster = 1
     ratio   = 1/2
     delta   = 3/100
 
 -- logs & daemons (horizontal split, s), rowsLayout variant
-dishesLayout = limitWindows 5 $ Dishes nmaster ratio
+dishesLayout = re "Dishes 5" $ limitWindows 5 $ Dishes nmaster ratio
   where
     nmaster = 1
     ratio = 1/5
 
 -- chats (vertical split, v key), columnsLayout variant
-curtainsLayout = Mirror dishesLayout
+curtainsLayout = re "Curtains 5" $ Mirror dishesLayout
 
 -- music & video players
-noBordersLayout = noBorders $ Full
+noBordersLayout = re "NoBorders" $ noBorders $ Full
 
 -- fibofun
 spiralLayout = spiral(1/2)
