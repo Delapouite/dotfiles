@@ -5,29 +5,34 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.GridSelect
 import XMonad.Actions.NoBorders
+import XMonad.Actions.Submap
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 
+import XMonad.Layout.Accordion
+import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Column
 import XMonad.Layout.Dishes
 import XMonad.Layout.Grid
 import XMonad.Layout.LimitWindows
+import XMonad.Layout.MultiToggle
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spiral
 
 import XMonad.Util.Run (spawnPipe)
 
+import Data.Map (fromList)
 import Data.Monoid
 import System.IO
 import System.Exit
 
 import qualified XMonad.StackSet as W
-import qualified Data.Map as M
 
 -- KEYS - 5 rows :
 -- F* row: media controls
@@ -59,182 +64,225 @@ myGSConfig = (buildDefaultGSConfig myColorizer)
   }
 
 -- Key bindings. Add, modify or remove key bindings here.
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modm} = fromList $
+  -- Right pinky keys
 
-    -- Pinky keys
-
-    -- Launch a terminal
-    [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
-    -- Launch a ranger
-    , ((modm .|. shiftMask, xK_Return   ), spawn "xterm -e \"ranger\"")
-    -- Launch a terminal in cwd
-    , ((modm,               xK_BackSpace), spawn "xterm -e \"cd `xcwd` && /bin/zsh\"")
-    -- Launch ranger in cwd
-    , ((modm .|. shiftMask, xK_BackSpace), spawn "xterm -e \"cd `xcwd` && ranger\"")
-    -- Close focused window
-    , ((modm,               xK_Escape   ), kill)
-    -- Restart xmonad
-    , ((modm,               xK_Delete   ), spawn "xmonad --recompile; xmonad --restart")
-    -- Quit xmonad
-    , ((modm .|. shiftMask, xK_Delete   ), io (exitWith ExitSuccess))
-
-
-    -- Function keys
-
-    -- Sound volume
-    , ((modm,               xK_F1 ), spawn "amixer set Master toggle")
-    , ((modm,               xK_F2 ), spawn "amixer set Master 3%-")
-    , ((modm,               xK_F3 ), spawn "amixer set Master 3%+")
-    , ((modm,               xK_F4 ), spawn "amixer set Mic toggle")
-
-    -- Screen brightness
-    , ((modm,               xK_F5 ), spawn "xbacklight -10")
-    , ((modm,               xK_F6 ), spawn "xbacklight +10")
-
-    -- Keyboard (zsh "bepo" alias non available)
-    , ((modm,               xK_F11), spawn "kbswitch.sh fr")
-    , ((modm,               xK_F12), spawn "kbswitch.sh bepo")
-
-    -- Launch applications
-    , ((modm,               xK_p    ), spawn "dmenu_run")
-    , ((modm .|. shiftMask, xK_f    ), spawn "firefox")
-    , ((modm .|. shiftMask, xK_g    ), spawn "chromium")
-
-    -- MPD controls
-    , ((modm,               xK_Left ), spawn "mpc prev")
-    , ((modm,               xK_Right), spawn "mpc next")
-    , ((modm,               xK_Up   ), spawn "mpc toggle")
-    , ((modm,               xK_Down ), spawn "mpc stop")
+  -- Launch a terminal
+  [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
+  -- Launch ranger
+  , ((modm .|. shiftMask, xK_Return   ), spawn "xterm -e \"ranger\"")
+  -- Launch a terminal in cwd
+  , ((modm,               xK_BackSpace), spawn "xterm -e \"cd `xcwd` && /bin/zsh\"")
+  -- Launch ranger in cwd
+  , ((modm .|. shiftMask, xK_BackSpace), spawn "xterm -e \"cd `xcwd` && ranger\"")
+  -- Close focused window
+  , ((modm,               xK_Escape   ), kill)
+  -- Restart xmonad
+  , ((modm,               xK_Delete   ), spawn "xmonad --recompile; xmonad --restart")
+  -- Quit xmonad
+  , ((modm .|. shiftMask, xK_Delete   ), io exitSuccess)
 
 
-    -- Bottom keys - Window mgmt
+  -- Function keys
+
+  -- Sound volume
+  , ((modm,               xK_F1 ), spawn "amixer set Master toggle")
+  , ((modm,               xK_F2 ), spawn "amixer set Master 3%-")
+  , ((modm,               xK_F3 ), spawn "amixer set Master 3%+")
+  , ((modm,               xK_F4 ), spawn "amixer set Mic toggle")
+
+  -- Screen brightness
+  , ((modm,               xK_F5 ), spawn "xbacklight -10")
+  , ((modm,               xK_F6 ), spawn "xbacklight +10")
+
+  -- Keyboard (zsh "bepo" alias non available)
+  , ((modm,               xK_F11), spawn "kbswitch.sh fr")
+  , ((modm,               xK_F12), spawn "kbswitch.sh bepo")
+
+  -- Launch applications
+  , ((modm,               xK_p      ), spawn "dmenu_run")
+
+  -- MPD controls
+  , ((modm,               xK_Left   ), spawn "mpc prev")
+  , ((modm,               xK_Right  ), spawn "mpc next")
+  , ((modm,               xK_Up     ), spawn "mpc toggle")
+  , ((modm,               xK_Down   ), spawn "mpc random")
+  , ((modm,               xK_Page_Up), spawn "mpd-fav")
+
+
+  -- Window mgmt
+  , ((modm, xK_x), submap . fromList $
 
     -- Show grid
-    , ((modm,               xK_z    ), goToSelected myGSConfig)
-
-    -- Push floating window back into tiling
-    , ((modm,               xK_x    ), withFocused $ windows . W.sink)
-
-    -- Resize viewed windows to the correct size
-    , ((modm .|. shiftMask, xK_x    ), refresh)
-
-    -- Toggle noBorder
-    , ((modm,               xK_n    ), withFocused toggleBorder)
-
-    -- Rotate through the available layouts
-    , ((modm,               xK_space), sendMessage NextLayout)
-
+    [ ((0, xK_g), goToSelected myGSConfig)
+    -- Toggle border
+    , ((0, xK_b), withFocused toggleBorder)
     -- Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
-
-    -- Home keys - Layouts
-
-    -- All
-    , ((modm,               xK_a    ), setLayout $ Layout $ allLayouts)
-    -- Full
-    , ((modm,               xK_f    ), setLayout $ Layout $ Full)
-    -- Grid
-    , ((modm,               xK_g    ), setLayout $ Layout $ Grid)
-    -- Columns
-    , ((modm,               xK_c    ), setLayout $ Layout $ columnsFirst)
-    -- Rows
-    , ((modm,               xK_r    ), setLayout $ Layout $ rowsFirst)
-    -- Dishes (split)
-    , ((modm,               xK_s    ), setLayout $ Layout $ dishesFirst)
-    -- Curtains (vsplit)
-    , ((modm,               xK_v    ), setLayout $ Layout $ curtainsFirst)
-    -- Spiral
-    , ((modm .|. shiftMask, xK_s    ), setLayout $ Layout $ spiralLayout)
-
-    -- Vim Arrows
-
-    -- Move focus to the next window
-    , ((modm,               xK_Tab  ), windows W.focusDown)
-    , ((modm,               xK_j    ), windows W.focusDown)
-    -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_Tab  ), windows W.swapDown)
-    , ((modm .|. shiftMask, xK_j    ), windows W.swapDown)
-
-    -- Move focus to the previous window
-    , ((modm,               xK_k    ), windows W.focusUp)
-    -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k    ), windows W.swapUp)
-
-    -- Move focus to the master window
-    , ((modm,               xK_m    ), windows W.focusMaster)
-    -- Swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_m    ), windows W.swapMaster)
-
-    -- Shrink the master area
-    , ((modm,               xK_h    ), sendMessage Shrink)
-
-    -- Expand the master area
-    , ((modm,               xK_l    ), sendMessage Expand)
+    , ((0, xK_space), setLayout $ XMonad.layoutHook conf)
+    -- Push floating window back into tiling
+    , ((0, xK_f), withFocused $ windows . W.sink)
+    -- Resize viewed windows to the correct size
+    , ((0, xK_r), refresh)
+    ])
 
 
-    -- Arrows
+  -- Layouts
+  , ((modm, xK_space), submap . fromList $
 
-    -- Move to prev workspace
-    , ((modm .|. shiftMask, xK_Left ), prevWS)
+      -- All (whole)
+      [ ((0, xK_w), setLayout $ Layout allLayouts)
+      -- Rotate through the available layouts
+      , ((0, xK_n), sendMessage NextLayout)
+      -- Reflection (true mirror!)
+      , ((0, xK_x), sendMessage $ Toggle REFLECTX)
+      , ((0, xK_y), sendMessage $ Toggle REFLECTY)
 
-    -- Move to next workspace
-    , ((modm .|. shiftMask, xK_Right), nextWS)
+      -- Accordion
+      , ((0, xK_a), setLayout $ Layout accordions)
+      -- Full
+      , ((0, xK_f), setLayout $ Layout Full)
+      -- Grid
+      , ((0, xK_g), setLayout $ Layout Grid)
+      -- Columns
+      , ((0, xK_c), setLayout $ Layout columnsFirst)
+      -- Rows
+      , ((0, xK_r), setLayout $ Layout rowsFirst)
+      -- Dishes (split)
+      , ((0, xK_d), setLayout $ Layout dishesFirst)
+      -- Curtains (vsplit)
+      , ((0, xK_v), setLayout $ Layout curtainsFirst)
+      -- Binary Repartition
+      , ((0, xK_b), setLayout $ Layout emptyBSP)
+      -- Spiral
+      , ((0, xK_s), setLayout $ Layout spiralLayout)
+      -- Tiers
+      , ((0, xK_t), setLayout $ Layout tiersFirst)
+      -- Halves
+      , ((0, xK_h), setLayout $ Layout halvesFirst)
+      ])
 
-    -- Increment the number of windows in the master area
-    , ((modm .|. shiftMask, xK_Up   ), sendMessage $ IncMasterN 1)
 
-    -- Deincrement the number of windows in the master area
-    , ((modm .|. shiftMask, xK_Down ), sendMessage $ IncMasterN (-1))
-    ]
-    ++
+  -- Vim Arrows
 
-    -- Numbers row
+  -- Move focus to the next window
+  , ((modm,               xK_Tab  ), windows W.focusDown)
+  , ((modm,               xK_j    ), windows W.focusDown)
+  -- Swap the focused window with the next window
+  , ((modm .|. shiftMask, xK_Tab  ), windows W.swapDown)
+  , ((modm .|. shiftMask, xK_j    ), windows W.swapDown)
 
-    -- mod-[` 1 .. 0], Switch to workspace N
-    -- mod-shift-[~ ! .. )], Move client to workspace N
-    [((mask .|. modm, key), windows $ f i)
-        | (i, key) <- zip (XMonad.workspaces conf)
-            [ xK_grave
-            , xK_1
-            , xK_2
-            , xK_3
-            , xK_4
-            , xK_5
-            , xK_6
-            , xK_7
-            , xK_8
-            , xK_9
-            , xK_0
-            ]
-        , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
+  -- Move focus to the previous window
+  , ((modm,               xK_k    ), windows W.focusUp)
+  -- Swap the focused window with the previous window
+  , ((modm .|. shiftMask, xK_k    ), windows W.swapUp)
 
-    -- Upper row
+  -- Move focus to the master window
+  , ((modm,               xK_m    ), windows W.focusMaster)
+  -- Swap the focused window and the master window
+  , ((modm .|. shiftMask, xK_m    ), windows W.swapMaster)
 
-    -- mod-{a,z,e}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{a,z,e}, Move client to screen 1, 2, or 3
-    [((mask .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        -- following 2 lines are generator yielding tuples for the comprehension
+  -- Shrink the master area
+  , ((modm,               xK_h    ), sendMessage Shrink)
 
-        -- [0..] is the 2nd arg because zip is lazy right
-        | (key, sc) <- zip [xK_q, xK_w, xK_e] [0..]
-        , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
+  -- Expand the master area
+  , ((modm,               xK_l    ), sendMessage Expand)
+
+
+  -- Arrows
+
+  -- Move to prev workspace
+  , ((modm .|. shiftMask, xK_Left ), prevWS)
+
+  -- Move to next workspace
+  , ((modm .|. shiftMask, xK_Right), nextWS)
+
+  -- Increment the number of windows in the master area
+  , ((modm .|. shiftMask, xK_Up   ), sendMessage $ IncMasterN 1)
+
+  -- Decrement the number of windows in the master area
+  , ((modm .|. shiftMask, xK_Down ), sendMessage $ IncMasterN (-1))
+
+
+  -- Firefox
+
+  , ((modm, xK_f), submap . fromList $
+
+      -- Launch
+      [ ((0, xK_x), spawn "firefox")
+      -- Sites
+      , ((0, xK_g), spawn "firefox github.com")
+      , ((0, xK_i), spawn "firefox game-icons.net")
+      , ((0, xK_s), spawn "firefox stackoverflow.com")
+      ])
+
+
+  -- Chromium
+
+  , ((modm, xK_c), submap . fromList $
+
+      -- Launch
+      [ ((0, xK_x), spawn "chromium")
+      -- Sites
+      , ((0, xK_g), spawn "chromium github.com")
+      , ((0, xK_i), spawn "chromium game-icons.net")
+      , ((0, xK_m), spawn "chromium gmail.com")
+      , ((0, xK_s), spawn "chromium stackoverflow.com")
+      , ((0, xK_t), spawn "chromium tweetdeck.twitter.com")
+      ])
+  ]
+
+  ++
+
+  -- Numbers row
+
+  -- mod-[` 1 .. 0], Switch to workspace N
+  -- mod-shift-[~ ! .. )], Move client to workspace N
+  [((mask .|. modm, key), windows $ f i)
+    | (i, key) <- zip (XMonad.workspaces conf)
+      [ xK_grave
+      , xK_1
+      , xK_2
+      , xK_3
+      , xK_4
+      , xK_5
+      , xK_6
+      , xK_7
+      , xK_8
+      , xK_9
+      , xK_0
+      ]
+    , (f, mask) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+
+  ++
+
+  -- Upper row
+
+  -- mod-{a,z,e}, Switch to physical/Xinerama screens 1, 2, or 3
+  -- mod-shift-{a,z,e}, Move client to screen 1, 2, or 3
+  [((mask .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    -- following 2 lines are generator yielding tuples for the comprehension
+
+    -- [0..] is the 2nd arg because zip is lazy right
+    | (key, sc) <- zip [xK_q, xK_w, xK_e] [0..]
+    , (f, mask) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 -- Mouse bindings: default actions bound to mouse events
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+myMouseBindings XConfig {XMonad.modMask = modm} = fromList
 
-    -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster))
+  -- mod-button1, Set the window to floating mode and move by dragging
 
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
 
-    -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster))
-    ]
+  [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
+                                     >> windows W.shiftMaster)
+
+  -- mod-button2, Raise the window to the top of the stack
+  , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
+
+  -- mod-button3, Set the window to floating mode and resize by dragging
+  , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                     >> windows W.shiftMaster)
+  ]
 
 
 -- Layouts:
@@ -245,10 +293,13 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 -- Note that each layout is separated by ||| which denotes layout choice.
 
-re name l = renamed [Replace name] l
+re name = renamed [Replace name]
 
 -- g key, f key
 gridFull = Grid ||| Full
+
+-- a key
+accordions = Accordion ||| Mirror Accordion
 
 -- r key
 rowsLayout = re "Rows" $ Column 1
@@ -283,7 +334,7 @@ dishesLayout = re "Dishes 5" $ limitWindows 5 $ Dishes nmaster ratio
 curtainsLayout = re "Curtains 5" $ Mirror dishesLayout
 
 -- music & video players
-noBordersLayout = re "NoBorders" $ noBorders $ Full
+noBordersLayout = re "NoBorders" $ noBorders Full
 
 -- fibofun
 spiralLayout = spiral(1/2)
@@ -304,12 +355,15 @@ allLayouts = smartBorders $ columnsLayout ||| rowsLayout
                         ||| curtainsLayout ||| dishesLayout
                         ||| Full
 
-myLayoutHook = onWorkspace  "z"  rowsFirst $
-               onWorkspace  "4"  columnsFirst $
-               onWorkspace  "8"  halvesFirst $
-               onWorkspace  "9"  tiersFirst $
-               onWorkspace  "10" noBordersLayout $
-                                 allLayouts
+myLayoutHook = mkToggle (single REFLECTX) $
+               mkToggle (single REFLECTY) $
+                (onWorkspace  "z"  rowsFirst $
+                 onWorkspace  "vi" dishesFirst $
+                 onWorkspace  "4"  columnsFirst $
+                 onWorkspace  "8"  halvesFirst $
+                 onWorkspace  "9"  tiersFirst $
+                 onWorkspace  "10" noBordersLayout $
+                                   allLayouts)
 
 -- Window rules:
 
@@ -326,13 +380,13 @@ myLayoutHook = onWorkspace  "z"  rowsFirst $
 
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Firefox"        --> doShift "2"
-    , className =? "Chromium"       --> doShift "3"
-    , className =? "Deadbeef"       --> doShift "9"
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore
+  [ className =? "Firefox"        --> doShift "2"
+  , className =? "Chromium"       --> doShift "3"
+  , className =? "Deadbeef"       --> doShift "9"
+  , resource  =? "desktop_window" --> doIgnore
+  , resource  =? "kdesktop"       --> doIgnore
 --  https://www.reddit.com/r/xmonad/comments/4cnjhi/fullscreen_video_in_firefox/
-    , isFullscreen --> doFullFloat ]
+  , isFullscreen --> doFullFloat ]
 
 -- Event handling
 
