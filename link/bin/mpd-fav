@@ -1,0 +1,4 @@
+FAVS_PLAYLIST=~/.config/mpd/playlists/favs.m3u
+ncmpcpp --current-song="%D/%f" >> $FAVS_PLAYLIST
+echo >> $FAVS_PLAYLIST
+uniq $FAVS_PLAYLIST | sponge $FAVS_PLAYLIST
