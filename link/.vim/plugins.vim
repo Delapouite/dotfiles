@@ -1,9 +1,9 @@
 call plug#begin('~/.vim/bundle')
 
 " themes
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 " use this solarized theme because of black on black bug
-Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim', { 'commit': 'f3022fb1fdeff22f99a4b4278c8f44c1131836cd'}
 
 Plug 'kana/vim-smartword'
 
@@ -16,7 +16,9 @@ Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-brace'
 
 " c — ac/ic for a comm
-Plug 'glts/vim-textobj-comment'
+" Plug 'glts/vim-textobj-comment'
+" c — ac/ic for a column
+Plug 'coderifous/textobj-word-column.vim'
 
 " i — ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
 Plug 'kana/vim-textobj-indent'
@@ -44,14 +46,23 @@ Plug 'Julian/vim-textobj-variable-segment'
 " , — a,/i, for function params
 Plug 'sgur/vim-textobj-parameter'
 
+" m — am/im for method calls
+Plug 'thalesmello/vim-textobj-methodcall'
+
+" cxiw
+Plug 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-lion'
+
 " http://aftnn.org/post/75730734352/vim-auto-closers-compared
 " Plug 'jiangmiao/auto-pairs'
 Plug 'cohama/lexima.vim'
+
 
 " ui
 Plug 'scrooloose/nerdtree'
 let NERDTreeHijackNetrw = 1
 let NERDTreeMinimalUI = 1
+let NERDTreeQuitOnOpen = 1
 " autoclose when only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -102,9 +113,13 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 Plug 'tomtom/quickfixsigns_vim'
 let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorMoved', 'InsertLeave', 'InsertChange']
 
+Plug 'vim-scripts/BufOnly.vim'
+
 " cvs
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 0
+
 " expand
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -114,6 +129,9 @@ Plug 'honza/vim-snippets'
 " Plug 'matthewsimo/angular-vim-snippets'
 " Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 "
 " cs"' ds" ysiw(
 Plug 'tpope/vim-surround'
@@ -121,6 +139,7 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_verbose = 0
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 " gcc
 Plug 'tpope/vim-commentary'
@@ -140,6 +159,11 @@ Plug 'junegunn/fzf.vim'
 "   \ }
 
 Plug 'mileszs/ack.vim'
+let g:ackprg = 'ag --vimgrep'
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
 Plug 'tpope/vim-repeat'
 
 " code style
@@ -168,6 +192,7 @@ Plug 'shime/vim-livedown', { 'for': 'markdown' }
 
 " filetypes
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mvolkmann/vim-js-arrow-function'
 
 " let g:javascript_conceal_null = 'ø'
 " let g:javascript_conceal_this = '@'
@@ -181,7 +206,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " markup
 Plug 'othree/html5.vim'
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'digitaltoad/vim-pug', { 'for': 'jade' }
 " altscript
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
@@ -197,6 +222,8 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'wikitopian/hardmode'
 
+Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+
 let g:markdown_fenced_languages = ['css', 'html', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
 
 call plug#end()
@@ -206,4 +233,7 @@ call lexima#add_rule({'char': '(', 'at': '\%#[0-9a-zA-Z]', 'leave': 0, 'filetype
 call lexima#add_rule({'char': '[', 'at': '\%#[0-9a-zA-Z]', 'leave': 0, 'filetype': 'javascript'})
 call lexima#add_rule({'char': '{', 'at': '\%#[0-9a-zA-Z]', 'leave': 0, 'filetype': 'javascript'})
 
-colorscheme base16-solarized
+let base16colorspace=256
+" let g:base16_shell_path='/home/delapouite/code/github/base16/base16-shell'
+" set background=light
+colorscheme base16-default
