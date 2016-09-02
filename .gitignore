@@ -3,3 +3,4 @@ cache
 *.swp
 link/.vim/swap
 link/.vim/undo
+link/.xmonad/icons
