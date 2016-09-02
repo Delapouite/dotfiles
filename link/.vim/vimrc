@@ -5,9 +5,6 @@
 " - dnvim - Deleted options appear in red
 " - envim - this is now enabled by default, therefore Extraneous
 
-" viM | dnvim
-set nocompatible
-
 " better communication with OS
 set clipboard=unnamedplus
 " to resize split windows | envim
@@ -16,13 +13,12 @@ set mouse=a
 " colors
 " in neovim make sure to use export TERM=xterm-256colors instead | dnvim
 set t_Co=256
-set background=light
 hi Cursor ctermfg=14 ctermbg=white
 syntax on
+" colorscheme is set in plugins.vim
 
 " display invisible chars
-set list
-set listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:▶,precedes:◀
+set list listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:▶,precedes:◀
 " replace with fancy chars if declared (see after/syntax/javascript.vim)
 set conceallevel=2
 set lazyredraw
@@ -32,12 +28,8 @@ set cursorline cursorcolumn
 " room to breath
 set scrolloff=5
 
-" dynamic line numbers
-set nonumber
-
 " search | envim
-set hlsearch
-set incsearch
+set hlsearch incsearch
 
 " better than 50 | envim
 set history=10000
@@ -59,13 +51,15 @@ set tabstop=2
 
 " don't truncate words
 set linebreak
+" only insert 1 space
+set nojoinspaces
 
 " jump between start and end HTML tags | envim
 runtime! macros/matchit.vim
 
 " statusline
 
-" always display
+" always display | envim
 set laststatus=2
 
 set statusline=%F\      "filename
@@ -88,6 +82,7 @@ set suffixesadd=.js,.jsx
 
 " Ctrl-p will look in dictionary if set spell is activated
 set complete=.,w,b,u,t,i,kspell
+set wildmenu
 
 set timeoutlen=1000 ttimeoutlen=0
 
