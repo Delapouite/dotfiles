@@ -1,6 +1,10 @@
+export LYNX_CFG=~/.config/lynx/lynx.cfg
+export MAD_PATH=~/.manu-pages/md
 export PATH=~/bin:$PATH
 export PATH=~/.cabal/bin:$PATH
 export PATH=~/.dotfiles/bin:$PATH
-export PATH=~/.gem/ruby/2.2.0/bin:$PATH
 export PATH=~/.npm-global/bin:$PATH
 source ~/.nvm/nvm.sh
+export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+GEM_PATH=$GEM_HOME
+export PATH=$PATH:$GEM_HOME/bin
