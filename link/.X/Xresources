@@ -13,8 +13,9 @@ xterm*faceName: DejaVu Sans Mono for Powerline
 ! xterm*faceName: ProggyCleanTT Plus Nerd File Types Mono
 ! xterm*faceName: Sauce Code Powerline Plus Nerd File Types Mono
 ! available in VT Fonts menu (CTRL + Right Click)
+
 ! default
-xterm*faceSize: 12
+xterm*faceSize: 10
 ! unreadable
 xterm*faceSize1: 6
 ! tiny
@@ -39,4 +40,4 @@ xterm*metaSendsEscape: true
 
 Xcursor.size: 42
 
-#include "dark"
+! #include "light"
