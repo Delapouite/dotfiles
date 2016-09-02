@@ -54,6 +54,7 @@ alias extar='tar -xvzf'
 alias adios='systemctl poweroff'
 alias cal='cal --monday'
 alias open='xdg-open'
+alias ppath='echo $PATH | tr -s ":" "\n"'
 alias rm='rm -i'
 alias wttr='curl -4 http://wttr.in/Lyon'
 alias zik='ncmpcpp'
@@ -71,6 +72,7 @@ alias gpull='git pull'
 alias gpush='git push'
 alias gst='git st'
 alias gco='git co'
+alias gci='git ci'
 
 # vim, nvim
 
