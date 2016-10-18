@@ -3,12 +3,10 @@
 # VARS
 
 # vim / neovim
-EDITOR=vim
-VISUAL=vim
+EDITOR=nvim
+VISUAL=nvim
 export TERM='xterm-256color'
-
 export NODE_ENV=development
-
 
 autoload -U colors compinit promptinit
 colors
@@ -47,7 +45,6 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-
 . ~/.aliases
 . ~/.paths
 # shortcut jump
@@ -58,10 +55,20 @@ fpath=($HOME/.z/completions $fpath)
 setopt auto_cd
 setopt hist_ignore_dups
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 
-# Base16 Shell
-BASE16_SHELL="$HOME/code/github/base16/base16-shell/base16-solarized.light.sh"
-# BASE16_SHELL="$HOME/code/github/base16/base16-shell/base16-solarized.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# BASE16_SHELL="$HOME/code/github/base16/base16-shell/scripts/base16-solarized-light.sh"
+# BASE16_SHELL="$HOME/code/github/base16/base16-shell/scripts/base16-solarized-dark.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fmpc() {
+  local song_position
+  song_position=$(mpc -f "%position%) %artist% - %title%" playlist | \
+    fzf-tmux --query="$1" --reverse --select-1 --exit-0 | \
+    sed -n 's/^\([0-9]\+\)).*/\1/p') || return 1
+  [ -n "$song_position" ] && mpc -q play $song_position
+}
