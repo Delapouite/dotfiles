@@ -7,13 +7,11 @@
 
 " better communication with OS
 set clipboard=unnamedplus
-" to resize split windows | envim
-set mouse=a
 
 " colors
 " in neovim make sure to use export TERM=xterm-256colors instead | dnvim
 set t_Co=256
-hi Cursor ctermfg=14 ctermbg=white
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 " colorscheme is set in plugins.vim
 
@@ -23,27 +21,19 @@ set list listchars=nbsp:•,eol:¬,tab:\¦\ ,trail:~,extends:▶,precedes:◀
 set conceallevel=2
 set lazyredraw
 
-" crosshair on focus
+" crosshair
 set cursorline cursorcolumn
 " room to breath
 set scrolloff=5
 
-" search | envim
-set hlsearch incsearch
-
-" better than 50 | envim
-set history=10000
+set hidden
 
 " dirs
 set directory=~/.vim/swap/
 set backupdir=~/.vim/backup/
-set undodir=~/.vim/undo/
-set undofile
+set undofile undodir=~/.vim/undo/
 
 " tabs, default: T2 @see mappings.vim
-set noexpandtab
-" envim
-set autoindent
 set colorcolumn=80,120
 set shiftwidth=2
 set softtabstop=2
@@ -56,11 +46,6 @@ set nojoinspaces
 
 " jump between start and end HTML tags | envim
 runtime! macros/matchit.vim
-
-" statusline
-
-" always display | envim
-set laststatus=2
 
 set statusline=%F\      "filename
 set statusline+=[
@@ -78,25 +63,19 @@ set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
 " used by gf to follow ES6 import - Ctrl-o to come back
-set suffixesadd=.js,.jsx
+set suffixesadd=.js,.jsx,.styl,.css
 
 " Ctrl-p will look in dictionary if set spell is activated
 set complete=.,w,b,u,t,i,kspell
-set wildmenu
 
 set timeoutlen=1000 ttimeoutlen=0
 
 " sources
+if !has('nvim')
+	source ~/.vim/compat.vim
+endif
 source ~/.vim/plugins.vim
 source ~/.vim/mappings.vim
 source ~/.vim/autocmds.vim
 source ~/.vim/functions.vim
 
-" lang specific mappings
-if !empty(system("setxkbmap -print|grep bepo"))
-	source ~/.vim/vimrc.bepo
-" elseif !empty(system("setxkbmap -print|grep lafayette"))
-" 	source ~/.vim/vimrc.lafayette
-else
-	source ~/.vim/vimrc.azerty
-endif

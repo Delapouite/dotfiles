@@ -8,6 +8,5 @@ augroup configurationFiles
 	autocmd! BufWritePost vimrc source $MYVIMRC
 	autocmd! BufWritePost .vimrc source $MYVIMRC
 	autocmd! BufWritePost _vimrc source $MYVIMRC
-	autocmd! BufWritePost mappings.vim source %
 	autocmd! BufWritePost Xresources !xrdb -load ~/.X/Xresources
 augroup END
