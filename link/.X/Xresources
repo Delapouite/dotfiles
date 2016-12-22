@@ -1,5 +1,13 @@
 ! to reload : xrdb ~/.X/Xresources or let vim autocmd do it
 
+! for FUC at startup
+*.background: #000000
+
+XTerm.VT100.translations: #override \
+Super <Key> minus: smaller-vt-font() \n\
+Super <Key> plus: larger-vt-font() \n\
+
+/* XTerm.VT100.font: -*-terminus-medium-r-normal-*-16-*-*-*-*-*-iso10646-* */
 ! xterm
 ! Better than exporting TERM from zshrch for terminfo
 xterm*termName: xterm-256color
@@ -15,7 +23,7 @@ xterm*faceName: DejaVu Sans Mono for Powerline
 ! available in VT Fonts menu (CTRL + Right Click)
 
 ! default
-xterm*faceSize: 10
+xterm*faceSize: 12
 ! unreadable
 xterm*faceSize1: 6
 ! tiny
@@ -25,9 +33,9 @@ xterm*faceSize3: 12
 ! medium
 xterm*faceSize4: 14
 ! large
-xterm*faceSize5: 16
+xterm*faceSize5: 18
 ! huge
-xterm*faceSize6: 18
+xterm*faceSize6: 22
 
 xterm*selectToClipboard: true
 
@@ -40,4 +48,9 @@ xterm*metaSendsEscape: true
 
 Xcursor.size: 42
 
-! #include "light"
+! urxvt
+urxvt*borderless: 1
+urxvt*font: xft:Terminus:pixelsize=5
+urxvt*scrollBar: false
+
+/* #include "light" */
