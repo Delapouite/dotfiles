@@ -1,3 +1,6 @@
+# suffixes
+alias -s js=nvim
+
 # X.org
 
 alias sx='startx'
@@ -33,7 +36,8 @@ alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
 alias lsd='ll --group-directories-first'
-alias lr='ranger'
+
+alias r='ranger'
 
 # cd
 
@@ -55,7 +59,7 @@ alias adios='systemctl poweroff'
 alias cal='cal --monday'
 alias open='xdg-open'
 alias ppath='echo $PATH | tr -s ":" "\n"'
-alias rm='rm -i'
+# alias rm='rm -i'
 alias wttr='curl -4 http://wttr.in/Lyon'
 alias zik='ncmpcpp'
 
@@ -74,22 +78,21 @@ alias gst='git st'
 alias gco='git co'
 alias gci='git ci'
 
-# vim, nvim
+# editors
 
-alias vimjs='vim -c "set ft=javascript"'
 function v() {
   if [ -z "$1" ]; then
-      vim .
+    nvim -c 'Ranger'
   else
-      vim "$1"
+    nvim "$1"
   fi
 }
 
-function nv() {
+function k() {
   if [ -z "$1" ]; then
-      nvim .
+    kak -e 'ranger'
   else
-      nvim "$1"
+    kak "$1"
   fi
 }
 
@@ -105,3 +108,6 @@ function server() {
 function kill-port() {
   lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 }
+
+# sudo systemd (mongo, redis…)
+alias sstart='sudo systemctl start '
