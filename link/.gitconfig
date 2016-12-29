@@ -2,7 +2,7 @@
 	email = delapouite@gmail.com
 	name = Delapouite
 [core]
-	editor = vim
+	editor = nvim
 [alias]
 	br = branch -avv
 	branches = branch -a
