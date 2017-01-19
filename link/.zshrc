@@ -5,13 +5,15 @@
 # vim / neovim
 EDITOR=nvim
 VISUAL=nvim
-export TERM='xterm-256color'
 export NODE_ENV=development
 
 autoload -U colors compinit promptinit
 colors
 compinit
 promptinit
+
+zstyle ':completion:*' menu select=10
+zstyle ':completion:*' group-name ''
 
 # git branch, files to commit…
 . ~/code/github/zsh/zsh-git-prompt/zshrc.sh
