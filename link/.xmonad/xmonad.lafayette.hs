@@ -1,6 +1,8 @@
 -- list of xK_… vars available at /usr/include/X11/keysymdef.h
 -- or use xev to find key numbers
 
+-- imports {{{
+
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.GridSelect
@@ -16,6 +18,7 @@ import XMonad.Layout.Accordion
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.Column
 import XMonad.Layout.Dishes
+import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.MultiToggle
@@ -33,6 +36,8 @@ import System.IO
 import System.Exit
 
 import qualified XMonad.StackSet as W
+
+-- }}}
 
 -- KEYS - 5 rows :
 -- F* row: media controls
@@ -63,18 +68,24 @@ myGSConfig = (buildDefaultGSConfig myColorizer)
   , gs_cellpadding = 10
   }
 
--- Key bindings. Add, modify or remove key bindings here.
+-- spawn term
+term cmd = spawn $ "xterm -e \"" ++ cmd ++ "\""
+-- support for bas16 colorscheme
+term16 cmd = term $ "source ~/.base16_theme; " ++ cmd
+
+-- Key bindings {{{
+
 myKeys conf@XConfig {XMonad.modMask = modm} = fromList $
   -- Right pinky keys
 
   -- Launch a terminal
   [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
   -- Launch ranger
-  , ((modm .|. shiftMask, xK_Return   ), spawn "xterm -e \"ranger\"")
+  , ((modm .|. shiftMask, xK_Return   ), term16 "ranger")
   -- Launch a terminal in cwd
-  , ((modm,               xK_BackSpace), spawn "xterm -e \"cd `xcwd` && /bin/zsh\"")
+  , ((modm,               xK_BackSpace), term "cd $(xcwd); zsh")
   -- Launch ranger in cwd
-  , ((modm .|. shiftMask, xK_BackSpace), spawn "xterm -e \"cd `xcwd` && ranger\"")
+  , ((modm .|. shiftMask, xK_BackSpace), term16 "cd $(xcwd); ranger")
   -- Close focused window
   , ((modm,               xK_Escape   ), kill)
   -- Restart xmonad
@@ -95,12 +106,13 @@ myKeys conf@XConfig {XMonad.modMask = modm} = fromList $
   , ((modm,               xK_F5 ), spawn "xbacklight -10")
   , ((modm,               xK_F6 ), spawn "xbacklight +10")
 
-  -- Keyboard (zsh "bepo" alias non available)
   , ((modm,               xK_F11), spawn "kbswitch.sh fr")
-  , ((modm,               xK_F12), spawn "kbswitch.sh bepo")
+  , ((modm,               xK_F12), term16 "nvim ~/.xmonad/xmonad.hs")
 
   -- Launch applications
   , ((modm,               xK_p      ), spawn "dmenu_run")
+  , ((modm,               xK_v      ), term16 "nvim")
+  , ((modm .|. shiftMask, xK_v      ), term16 "cd $(xcwd); nvim")
 
   -- MPD controls
   , ((modm,               xK_Left   ), spawn "mpc prev")
@@ -123,6 +135,26 @@ myKeys conf@XConfig {XMonad.modMask = modm} = fromList $
     , ((0, xK_f), withFocused $ windows . W.sink)
     -- Resize viewed windows to the correct size
     , ((0, xK_r), refresh)
+    -- Increment the left-hand gap
+    , ((0, xK_h), sendMessage $ IncGap 20 L)
+    -- Increment the down-hand gap
+    , ((0, xK_j), sendMessage $ IncGap 20 D)
+    -- Increment the up-hand gap
+    , ((0, xK_k), sendMessage $ IncGap 20 U)
+    -- Increment the right-hand gap
+    , ((0, xK_l), sendMessage $ IncGap 20 R)
+    -- Zoom
+    , ((0, xK_z), sequence_ [ sendMessage (IncGap 20 L)
+                            , sendMessage (IncGap 20 D)
+                            , sendMessage (IncGap 20 U)
+                            , sendMessage (IncGap 20 R)
+                            ])
+    -- Unzoom
+    , ((0, xK_u), sequence_ [ sendMessage (DecGap 20 L)
+                            , sendMessage (DecGap 20 D)
+                            , sendMessage (DecGap 20 U)
+                            , sendMessage (DecGap 20 R)
+                            ])
     ])
 
 
@@ -159,6 +191,23 @@ myKeys conf@XConfig {XMonad.modMask = modm} = fromList $
       , ((0, xK_t), setLayout $ Layout tiersFirst)
       -- Halves
       , ((0, xK_h), setLayout $ Layout halvesFirst)
+      ])
+
+
+  -- BSP
+  , ((modm, xK_b), submap . fromList $
+
+      [ ((0, xK_b), setLayout $ Layout emptyBSP)
+
+      , ((0, xK_h), sendMessage $ ExpandTowards L)
+      , ((0, xK_j), sendMessage $ ExpandTowards D)
+      , ((0, xK_k), sendMessage $ ExpandTowards U)
+      , ((0, xK_l), sendMessage $ ExpandTowards R)
+
+      , ((0, xK_r), sendMessage Rotate)
+      , ((0, xK_s), sendMessage Swap)
+
+      , ((0, xK_p), sendMessage FocusParent)
       ])
 
 
@@ -284,8 +333,9 @@ myMouseBindings XConfig {XMonad.modMask = modm} = fromList
                                      >> windows W.shiftMaster)
   ]
 
+-- }}}
 
--- Layouts:
+-- Layouts {{{
 
 -- If you change layout bindings be sure to use 'mod-shift-space' after
 -- restarting (with 'mod-q') to reset your layout state to the new
@@ -349,6 +399,8 @@ halvesFirst = smartBorders $ halvesLayouts ||| tiersLayouts ||| gridFull
 dishesFirst = smartBorders $ dishesLayout ||| curtainsLayout ||| gridFull
 curtainsFirst = smartBorders $ curtainsLayout ||| dishesLayout ||| gridFull
 
+tvGaps = gaps [(L, 0), (D, 0), (U, 0), (R, 0)] columnsLayout
+
 allLayouts = smartBorders $ columnsLayout ||| rowsLayout
                         ||| Grid
                         ||| halvesLayouts ||| tiersLayouts
@@ -360,12 +412,16 @@ myLayoutHook = mkToggle (single REFLECTX) $
                 (onWorkspace  "z"  rowsFirst $
                  onWorkspace  "vi" dishesFirst $
                  onWorkspace  "4"  columnsFirst $
+                 onWorkspace  "6"  tvGaps $
+                 onWorkspace  "7"  tvGaps $
                  onWorkspace  "8"  halvesFirst $
                  onWorkspace  "9"  tiersFirst $
                  onWorkspace  "10" noBordersLayout $
                                    allLayouts)
 
--- Window rules:
+-- }}}
+
+-- Window rules {{{
 
 -- Execute arbitrary actions and WindowSet manipulations when managing
 -- a new window. You can use this to always float a particular program,
@@ -412,7 +468,10 @@ myLogHook = return ()
 
 myStartupHook = return ()
 
--- Pretty Print for xmobar
+-- }}}
+
+-- Pretty Print for xmobar {{{
+
 myPP = xmobarPP {
   ppCurrent = xmobarColor "#D33682" "" . wrap "<" ">",
   ppVisible = wrap "(" ")",
@@ -423,11 +482,11 @@ myPP = xmobarPP {
   ppSep = " | "
 }
 -- Show/hide xmobar
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_o)
 
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
+-- }}}
+
+-- config {{{
 
 myConfig = defaultConfig {
   terminal           = "xterm",
@@ -451,3 +510,7 @@ myConfig = defaultConfig {
 }
 
 main = xmonad =<< statusBar "xmobar" myPP toggleStrutsKey myConfig
+
+-- }}}
+
+-- vim: set foldmethod=marker:
