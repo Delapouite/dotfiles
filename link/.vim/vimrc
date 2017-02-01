@@ -12,6 +12,8 @@ set clipboard=unnamedplus
 " in neovim make sure to use export TERM=xterm-256colors instead | dnvim
 set t_Co=256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" beam cursor in insert mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 syntax on
 " colorscheme is set in plugins.vim
 
@@ -38,14 +40,12 @@ set colorcolumn=80,120
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+autocmd FileType javascript set formatprg=prettier\ --stdin
 
 " don't truncate words
 set linebreak
 " only insert 1 space
 set nojoinspaces
-
-" jump between start and end HTML tags | envim
-runtime! macros/matchit.vim
 
 set statusline=%F\      "filename
 set statusline+=[
@@ -62,6 +62,9 @@ set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 
+" display current types keys in the bottom right corner
+set showcmd
+
 " used by gf to follow ES6 import - Ctrl-o to come back
 set suffixesadd=.js,.jsx,.styl,.css
 
@@ -69,6 +72,10 @@ set suffixesadd=.js,.jsx,.styl,.css
 set complete=.,w,b,u,t,i,kspell
 
 set timeoutlen=1000 ttimeoutlen=0
+
+if has('nvim')
+	set inccommand=split
+endif
 
 " sources
 if !has('nvim')
