@@ -25,10 +25,10 @@ command! W w !sudo dd of=%
 " _  dd  Y   S
 " $  D   y$  C
 
-" X = dh, x = dl, s = dl, Y = yy, S = cc,
+" X = dh, x = dl, s = cl, Y = yy, S = cc
 
 " easymotion
-map s <Plug>(easymotion-prefix)
+nmap s <Plug>(easymotion-s2)
 
 " to the end of the line (like C, D)
 noremap Y y$"
@@ -37,6 +37,7 @@ nmap <silent> <BS> :nohlsearch<CR>
 
 " no more shift on Lafayette
 nnoremap , :
+vnoremap , :
 " nnoremap <CR> :
 
 " indents
@@ -44,6 +45,15 @@ nmap <S-Tab> <<
 nmap <Tab> >>
 vmap <S-Tab> <gv
 vmap <Tab> >gv
+
+if has('nvim')
+	tnoremap <Esc>q <C-\><C-n>
+endif
+
+" kakoune goto, easier to type despite 2 letters
+nnoremap gh 0
+nnoremap gH ^
+nnoremap gl $
 
 " }}}
 
@@ -118,6 +128,8 @@ call s:Lmap('fl', 'exe "Lines"', 'lines')
 call s:Lmap('fm', 'exe "Maps"', 'maps')
 map <silent> <Leader>fw :execute "Ag " . expand("<cword>")<CR>
 call s:Lmap('fW', 'exe "Windows"', 'windows')
+call s:Lmap('f:', 'exe "Commands"', 'Commands')
+call s:Lmap('f/', 'exe "History/"', 'History')
 
 " g git - with fugitive
 let g:lmap.g = { 'name': '+git' }
@@ -150,17 +162,10 @@ map <Leader>pc :call Paste(v:register, "v", "p")<CR>
 map <Leader>pC :call Paste(v:register, "v", "P")<CR>
 
 " r ranger → does not work on neovim
-" let g:lmap.r = { 'name': 'ranger' }
-" call s:Lmap('rr', 'RangerEdit', 'edit')
-" call s:Lmap('rs', 'RangerSplit', 'split')
-" call s:Lmap('rt', 'RangerTab', 'tab')
-" call s:Lmap('rv', 'RangerVSplit', 'vsplit')
-" map <Leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
-" map <Leader>rR :set operatorfunc=RangerBrowseEdit<cr>g@
-" map <Leader>rT :set operatorfunc=RangerBrowseTab<cr>g@
-" map <Leader>rS :set operatorfunc=RangerBrowseSplit<cr>g@
-" map <Leader>rV :set operatorfunc=RangerBrowseVSplit<cr>g@
-"
+let g:lmap.r = { 'name': 'ranger' }
+call s:Lmap('rr', 'Ranger', 'current dir')
+call s:Lmap('rw', 'RangerWorkingDirectory', 'working dir')
+
 let g:smartWordEnabled = 0
 function! g:ToggleSmartWord()
 	if g:smartWordEnabled
@@ -178,19 +183,17 @@ function! g:ToggleSmartWord()
 	endif
 endfunction
 
-call g:ToggleSmartWord()
-
 " t toggles
 let g:lmap.t = { 'name': '+toggle' }
 call s:Lmap('tc', 'set cursorline! cursorcolumn!', 'cursor cross')
 call s:Lmap('td', 'call deoplete#toggle()', 'deoplete')
-call s:Lmap('tf', 'NERDTreeFind', 'tree find')
+" call s:Lmap('tf', 'NERDTreeFind', 'tree find')
 call s:Lmap('th', 'call ToggleHardMode()', 'hard mode')
 call s:Lmap('tm', 'SignatureToggleSigns', 'marks')
 call s:Lmap('tn', 'set number!', 'number')
 call s:Lmap('tr', 'set relativenumber!', 'relative number')
 call s:Lmap('ts', 'set spell!', 'spell')
-call s:Lmap('tt', 'NERDTreeToggle', 'tree')
+" call s:Lmap('tt', 'NERDTreeToggle', 'tree')
 call s:Lmap('tw', 'call ToggleSmartWord()', 'smartword')
 call s:Lmap('tW', 'set list!', 'whitespace')
 call s:Lmap('tz', 'Goyo', 'zen mode')
@@ -205,15 +208,16 @@ call s:Lmap('xp', 'cprevious', 'previous')
 "### single letter
 
 " kakoune mode
-map <silent> <Leader>u :execute "!kak % +" . line('.')<CR><CR>
+map <silent> <Leader>u :term "kak % +" . line('.')<CR>
 
 " buffers
+call s:Lmap('w', 'w', 'write')
 
 " windows
 " move or open
 call s:Lmap('q', 'q', 'quit win')
 map <silent> <Leader><ESC> :q<CR>
-call s:Lmap('w', 'wincmd w', 'switch win')
+
 call s:Lmap('h', 'call WinMove("h")', 'move ← win')
 call s:Lmap('j', 'call WinMove("j")', 'move ↓ win')
 call s:Lmap('k', 'call WinMove("k")', 'move ↑ win')
@@ -226,8 +230,12 @@ call s:Lmap('L', 'wincmd L', 'rotate → win')
 " divide
 call s:Lmap('s', 'wincmd s', 'split win')
 call s:Lmap('v', 'wincmd v', 'vsplit win')
+call s:Lmap('=', 'wincmd =', 'equal win')
+" maximize
+noremap <silent> <Leader>+ :wincmd _<CR>:wincmd <bar><CR>
 " other numbers are reserved by airline
-call s:Lmap('0', 'NERDTreeToggle', 'NERDTree')
+" call s:Lmap('0', 'NERDTreeToggle', 'NERDTree')
+call s:Lmap('0', 'Startify', 'Startify')
 
 " surround
 map <Leader>' ysiw'
@@ -236,6 +244,11 @@ map <Leader>( ysiw)
 map <Leader>[ ysiw]
 map <Leader>{ ysiw}
 map <Leader>< ysiw>
+
+" jump to orphans
+map <Leader>) g)
+map <Leader>] g]
+map <Leader>} g}
 
 " }}}
 

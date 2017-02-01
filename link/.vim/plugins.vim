@@ -21,7 +21,7 @@ Plug 'kana/vim-smartword'
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_verbose = 0
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
+" let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 " }}}
 
@@ -74,9 +74,12 @@ Plug 'sgur/vim-textobj-parameter'
 " m — am/im for method calls
 Plug 'thalesmello/vim-textobj-methodcall'
 
+" keep expanding to the next enclosing text object with same key press
+Plug 'terryma/vim-expand-region'
+
 " }}}
 
-"## ui / windows {{{
+"## ui / windows: startify, leader-guide, goyo, ranger, nerdtree, airline, signature, bufonly {{{
 
 Plug 'mhinz/vim-startify'
 let g:startify_custom_header = ['                                     neovim']
@@ -89,15 +92,31 @@ Plug 'hecal3/vim-leader-guide'
 " :Goyo
 Plug 'junegunn/goyo.vim'
 
-" :Ranger*
-Plug 'rafaqz/ranger.vim'
+" Temp display the content of registers when pressing " or @
+Plug 'junegunn/vim-peekaboo'
 
-Plug 'scrooloose/nerdtree'
-let NERDTreeHijackNetrw = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeQuitOnOpen = 1
+" :Ranger*
+"
+Plug 'francoiscabrol/ranger.vim'
+let g:ranger_map_keys = 0
+let g:loaded_netrwPlugin = 'disable'
+
+" internally ranger.vim uses Bclose.vim
+" this one does not leave a tray [No name] buffer at startup
+Plug 'moll/vim-bbye'
+command! -bang -complete=buffer -nargs=? Bclose Bdelete<bang> <args>
+
+" ]q next in quick list, [q previous, [Q, for first…
+" works for b uffer list, l ocation list (handy to go to next neomake error ]l)
+Plug 'tpope/vim-unimpaired'
+
+" nothing wrong with NERDTree, but ranger is more universal
+" Plug 'scrooloose/nerdtree'
+" let NERDTreeHijackNetrw = 1
+" let NERDTreeMinimalUI = 1
+" let NERDTreeQuitOnOpen = 1
 " autoclose when only window left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -119,6 +138,7 @@ let g:airline_mode_map = {
     \ 's'  : 'S',
     \ 'S'  : 'S',
     \ '' : 'S',
+    \ 't'  : 'T',
     \ }
 
 let g:airline#extensions#tabline#buffer_nr_show = 0
@@ -149,9 +169,14 @@ Plug 'kshenoy/vim-signature'
 " :BufOnly
 Plug 'vim-scripts/BufOnly.vim'
 
+" make the current line blink in a given interval using timers.
+" :call halo#run()
+Plug 'mhinz/vim-halo'
+
+
 " }}}
 
-" ## cvs {{{
+" ## cvs: fugitive, magit {{{
 
 Plug 'tpope/vim-fugitive'
 " :Magit
@@ -178,7 +203,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " }}}
 "
-" ## editing {{{
+" ## editing: repeat, surround, exchange, lion, switch, lexima, commentary, emmet {{{
 
 Plug 'tpope/vim-repeat'
 
@@ -199,7 +224,8 @@ Plug 'tommcdo/vim-exchange'
 " $i        = 5;
 " $username = 'tommcdo';
 " $stuff    = array(1, 2, 3);
-Plug 'tommcdo/vim-lion'
+" Plug 'tommcdo/vim-lion'
+" g:lion_create_maps = 0
 
 " gs: cycle true → false, 0 → 1…
 Plug 'AndrewRadev/switch.vim'
@@ -213,16 +239,21 @@ Plug 'tpope/vim-commentary'
 
 " gK / gJ: transform JS Object or Array from 1 line to multiline, if in early
 " return…
-Plug 'AndrewRadev/splitjoin.vim'
-let g:splitjoin_split_mapping = 'gJ'
+" not very predictable, problem with tab indent, semicolons, etc…
+" Plug 'AndrewRadev/splitjoin.vim'
+" let g:splitjoin_split_mapping = 'gK'
 
-" <c-y>,
+" <c-y>, F2
 Plug 'mattn/emmet-vim'
+
+" more feedback on post yank
+Plug 'machakann/vim-highlightedyank'
 
 " }}}
 
 " ## search: fzf {{{
 
+" 'ctrl-t': 'tab split', 'ctrl-x': 'split',  'ctrl-v': 'vsplit'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Plug 'osyo-manga/vim-over'
@@ -240,6 +271,7 @@ Plug 'junegunn/fzf.vim'
 " ## code style: neomake, syntastic, beautify, editorconfig {{{
 
 if has('nvim')
+	" use :lopen to see lint errors
 	Plug 'benekastah/neomake'
 	let g:neomake_javascript_enabled_makers = ['eslint']
 	autocmd! BufWritePost * Neomake
@@ -259,13 +291,17 @@ Plug 'editorconfig/editorconfig-vim'
 " show them in red and offers :FixWhitespace
 Plug 'bronson/vim-trailing-whitespace'
 
+Plug 'flowtype/vim-flow'
+let g:flow#enable = 0
+
 " }}}
 
 " ## filetypes {{{
 
-" if has('nvim')
+if has('nvim')
 	Plug 'neovim/node-host'
-" endif
+endif
+
 " Plug 'pangloss/vim-javascript'
 Plug 'mvolkmann/vim-js-arrow-function'
 
@@ -312,7 +348,7 @@ Plug 'shime/vim-livedown', { 'for': 'markdown' }
 
 call plug#end()
 
-" ## extra config {{{
+" ## extra config: lexima. color {{{
 
 " need to be written here: don't close if add pair just before a word
 call lexima#add_rule({'char': '(', 'at': '\%#[0-9a-zA-Z]', 'leave': 0, 'filetype': 'javascript'})
