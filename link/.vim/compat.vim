@@ -1,4 +1,4 @@
-" these options are set by default if neovim
+" these options are set by default in neovim
 " so this file should only be sources in original vim
 
 " gvim - remove menu, toolbar and scrollbars
@@ -17,3 +17,7 @@ set mouse=a
 
 set wildmenu
 set autoindent
+
+" jump between start and end HTML tags
+runtime! macros/matchit.vim
+
