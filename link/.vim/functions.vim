@@ -93,3 +93,11 @@ endfun
 function! NPMRegistry ()
 	silent exec '!xdg-open https://www.npmjs.com/package/' . NPMGetPackage()
 endfun
+
+" linewise - characterwise converter
+function! Paste(regname, pasteType, pastecmd)
+	let reg_type = getregtype(a:regname)
+	call setreg(a:regname, getreg(a:regname), a:pasteType)
+	exe 'normal "'.a:regname . a:pastecmd
+	call setreg(a:regname, getreg(a:regname), reg_type)
+endfunction
