@@ -3,9 +3,13 @@
 ! for FUC at startup
 *.background: #000000
 
+
+! Make Hyper_R (map on physical PRSC on Thinkpad X240) acts as F13
+! then tmux can use F13 (S-F1) as leader
 XTerm.VT100.translations: #override \
 Super <Key> minus: smaller-vt-font() \n\
 Super <Key> plus: larger-vt-font() \n\
+<Key> Hyper_R: string(0x1b) string("[1;2P") \n\
 
 /* XTerm.VT100.font: -*-terminus-medium-r-normal-*-16-*-*-*-*-*-iso10646-* */
 ! xterm
@@ -52,5 +56,6 @@ Xcursor.size: 42
 urxvt*borderless: 1
 urxvt*font: xft:Terminus:pixelsize=5
 urxvt*scrollBar: false
+
 
 /* #include "light" */
