@@ -11,6 +11,7 @@
 	diffw = diff --word-diff
 	dsf = "!git diff --color $@ | diff-so-fancy"
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ls = "!cd ${GIT_PREFIX:-`pwd`}; printf \"# HEAD: \"; git log --oneline | head -n1; git status"
 	st = status
 	stashes = stash list
 	tags = tag
